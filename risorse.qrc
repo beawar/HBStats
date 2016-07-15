@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/giallo.png</file>
+        <file>images/rosso.png</file>
+        <file>images/HBStats_Icon_Sfondo.png</file>
+        <file>images/edit.png</file>
+        <file>images/footbal.png</file>
+        <file>images/new.png</file>
+        <file>images/open.png</file>
+        <file>images/quit.png</file>
+        <file>images/reset.png</file>
+        <file>images/save.png</file>
+        <file>images/termina.png</file>
+        <file>images/two_fingers.png</file>
+        <file>images/export.png</file>
+        <file>images/cup.png</file>
+        <file>images/portiere.png</file>
+        <file>images/footbal_perc.png</file>
+        <file>images/portiere_perc.png</file>
+        <file>images/close_red.png</file>
+    </qresource>
+</RCC>
