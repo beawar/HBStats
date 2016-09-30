@@ -2,20 +2,20 @@
 #define SQUADRA_H
 
 #include <QString>
-#include <vector>
+#include "vettore.h"
 #include "eccezioni.h"
 #include "tesserato.h"
 #include "giocatore.h"
+#include "arbitro.h"
 #include "portiere.h"
 #include "allenatore.h"
-using std::vector;
 
 class Squadra
 {
 private:
     QString nome;
     QString societa;
-    vector<Tesserato*> tesserati;
+    Vettore<Tesserato*> tesserati;
 
     unsigned int vittorie;
     unsigned int pareggi;

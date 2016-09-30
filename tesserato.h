@@ -33,12 +33,12 @@ public:
 
   Tesserato& operator =(const Tesserato& t);
 
-  bool operator ==(const Tesserato& t) const;
-  bool operator !=(const Tesserato& t) const;
-  bool operator <(const Tesserato& t) const;
-  bool operator <=(const Tesserato& t) const;
-  bool operator >(const Tesserato& t) const;
-  bool operator >=(const Tesserato& t) const;
+  virtual bool operator ==(const Tesserato& t) const;
+  virtual bool operator !=(const Tesserato& t) const;
+  virtual bool operator <(const Tesserato& t) const;
+  virtual bool operator <=(const Tesserato& t) const;
+  virtual bool operator >(const Tesserato& t) const;
+  virtual bool operator >=(const Tesserato& t) const;
 
   void setChecked(const bool& b);
   bool isChecked() const;

@@ -1,17 +1,21 @@
 #include "editor.h"
 
-Editor::Editor(SquadreModel*sm, QWidget *parent) :
-    QDialog(parent), squadre(sm)
+Editor::Editor(SquadreModel*sm, ArbitriModel*am, QWidget *parent) :
+    QDialog(parent), squadre(sm), arbitri(am)
 {   
     createMainEditor();
     if(squadre){
         createTesseratoEditor();
         createSquadraEditor();
     }
+    if(arbitri){
+        createArbitroEditor();
+    }
 
     layouts = new QStackedLayout;
     layouts->addWidget(tesseratoWidget);
     layouts->addWidget(squadraWidget);
+    layouts->addWidget(arbitroWidget);
 
     QHBoxLayout* editorLayout = new QHBoxLayout;
     editorLayout->addWidget(listView);
@@ -36,10 +40,12 @@ void Editor::createMainEditor(){
     QRadioButton* tesseratoRadio = new QRadioButton(tr("Tesserati"), this);
     tesseratoRadio->setChecked(true);
     QRadioButton* squadraRadio = new QRadioButton(tr("Squadre"), this);
+    QRadioButton* arbitroRadio = new QRadioButton(tr("Arbiri"), this);
 
     radioButtonGroup = new QButtonGroup(this);
     radioButtonGroup->addButton(tesseratoRadio, id_tesserato);
     radioButtonGroup->addButton(squadraRadio, id_squadra);
+    radioButtonGroup->addButton(arbitroRadio, id_arbitro);
     connect(radioButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(updateLayout()));
 
     editButton = new QPushButton(tr("Modifica"), this);
@@ -58,6 +64,7 @@ void Editor::createMainEditor(){
     QHBoxLayout* radioLayout = new QHBoxLayout;
     radioLayout->addWidget(tesseratoRadio);
     radioLayout->addWidget(squadraRadio);
+    radioLayout->addWidget(arbitroRadio);
 
     radioGroup = new QGroupBox(tr("Scegli cosa modificare:"), this);
     radioGroup->setLayout(radioLayout);
@@ -136,6 +143,37 @@ void Editor::createSquadraEditor(){
     squadraWidget->setLayout(gridSLayout);
 }
 
+void Editor::createArbitroEditor(){
+    nomeALabel = new QLabel(tr("Nome:"), this);
+    nomeAEdit = new QLineEdit(this);
+
+    cognomeALabel = new QLabel(tr("Cognome:"), this);
+    cognomeAEdit = new QLineEdit(this);
+
+    dataALabel = new QLabel(tr("Data di nascita:"), this);
+    dataAEdit = new QDateEdit(this);
+    dataAEdit->setMaximumDate(QDate::currentDate());
+    dataAEdit->setDisplayFormat("dd/MM/yyyy");
+
+    livelloLabel = new QLabel(tr("Livello:"), this);
+    livelloEdit = new QSpinBox(this);
+    livelloEdit->setRange(0, 3);
+
+    QGridLayout* gridALayout = new QGridLayout;
+    gridALayout->addWidget(nomeALabel, 1, 1);
+    gridALayout->addWidget(nomeAEdit, 1, 2);
+    gridALayout->addWidget(cognomeALabel, 2, 1);
+    gridALayout->addWidget(cognomeAEdit, 2, 2);
+    gridALayout->addWidget(dataALabel, 3, 1);
+    gridALayout->addWidget(dataAEdit, 3, 2);
+    gridALayout->addWidget(livelloLabel, 4, 1);
+    gridALayout->addWidget(livelloEdit, 4, 2);
+
+    arbitroWidget = new QWidget(this);
+    arbitroWidget->setLayout(gridALayout);
+
+}
+
 void Editor::modifica(){
     if(listView->selectionModel()->currentIndex().isValid()){
         switch(radioButtonGroup->checkedId()){
@@ -145,8 +183,9 @@ void Editor::modifica(){
             case id_squadra:
                 modificaSquadra();
             break;
-            default:
-                break;
+            case id_arbitro:
+                modificaArbitro();
+            break;
         }
         updateList(squadreComboBox->currentIndex());
         emit dataChanged(true);
@@ -189,6 +228,18 @@ void Editor::modificaSquadra(){
     emit squadraChanged();
 }
 
+void Editor::modificaArbitro(){
+    int index = listView->selectionModel()->currentIndex().row();
+    Arbitro* arb = arbitri->at(index);
+    Arbitro a;
+    a.setNome(nomeAEdit->text());
+    a.setCognome(cognomeAEdit->text());
+    a.setData(dataAEdit->date());
+    a.setLivello(livelloEdit->value());
+    arbitri->modificaArbitro(arb, a);
+    updateList(INT_MIN);
+}
+
 void Editor::rimuovi(){
     if(listView->selectionModel()->currentIndex().isValid()){
         switch(radioButtonGroup->checkedId()){
@@ -197,6 +248,9 @@ void Editor::rimuovi(){
             break;
             case id_squadra:
                 rimuoviSquadra();
+            break;
+            case id_arbitro:
+                rimuoviArbitro();
             break;
             default:
             break;
@@ -219,14 +273,24 @@ void Editor::rimuoviSquadra(){
     emit squadraChanged();
 }
 
+void Editor::rimuoviArbitro(){
+    int index = listView->selectionModel()->currentIndex().row();
+    arbitri->removeArbitro(arbitri->at(index));
+    updateList(INT_MIN);
+}
+
 void Editor::updateList(int index){
     switch(radioButtonGroup->checkedId()){
         case id_tesserato:
             checkArray[index]->updateList();
+            tesserati = checkArray[index];
             listView->setModel(tesserati);
             break;
         case id_squadra:
             listView->setModel(squadre);
+            break;
+        case id_arbitro:
+            listView->setModel(arbitri);
             break;
         default:
             break;
@@ -246,6 +310,9 @@ void Editor::updateLayout(){
             break;
         case id_squadra:
             layouts->setCurrentWidget(squadraWidget);
+            break;
+        case id_arbitro:
+           layouts->setCurrentWidget(arbitroWidget);
             break;
         default:
 
@@ -269,6 +336,12 @@ void Editor::itemSelected(QModelIndex current){
                 nomeSEdit->clear();
                 societaEdit->clear();
                 penalitaEdit->clear();
+                break;
+            case id_arbitro:
+                nomeAEdit->clear();
+                cognomeAEdit->clear();
+                dataAEdit->setDate(QDate::currentDate());
+                livelloEdit->clear();
                 break;
             default:
             break;
@@ -298,6 +371,12 @@ void Editor::itemSelected(QModelIndex current){
                 nomeSEdit->setText(squadre->at(current.row())->getNome());
                 societaEdit->setText(squadre->at(current.row())->getSocieta());
                 penalitaEdit->setValue(squadre->at(current.row())->getPenalita());
+            break;
+            case id_arbitro:
+                nomeAEdit->setText(arbitri->at(current.row())->getNome());
+                cognomeAEdit->setText(arbitri->at(current.row())->getCognome());
+                dataAEdit->setDate(arbitri->at(current.row())->getData());
+                livelloEdit->setValue(arbitri->at(current.row())->getLivello());
             break;
             default:
             break;

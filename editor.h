@@ -18,17 +18,19 @@
 #include <QDateEdit>
 #include <QStackedLayout>
 #include <QItemSelection>
+#include "arbitrimodel.h"
 #include "squadremodel.h"
 #include "checklist.h"
-#include <vector>
+#include "vettore.h"
 
 
 class Editor : public QDialog
 {
     Q_OBJECT
 private:
-    enum {id_tesserato, id_squadra};
+    enum {id_tesserato, id_squadra, id_arbitro};
     SquadreModel* squadre;
+    ArbitriModel* arbitri;
     CheckList* tesserati;
 
     void createMainEditor();
@@ -62,16 +64,26 @@ private:
     QLabel* penalitaLabel;
     QSpinBox* penalitaEdit;
 
+    QLabel* nomeALabel;
+    QLineEdit* nomeAEdit;
+    QLabel* cognomeALabel;
+    QLineEdit* cognomeAEdit;
+    QLabel* dataALabel;
+    QDateEdit* dataAEdit;
+    QLabel* livelloLabel;
+    QSpinBox* livelloEdit;
+
     QStackedLayout* layouts;
     QVBoxLayout* mainLayout;
     QHBoxLayout* pushLayout;
     QWidget* tesseratoWidget;
     QWidget* squadraWidget;
+    QWidget* arbitroWidget;
 
-    std::vector<CheckList*> checkArray;
+    Vettore<CheckList*> checkArray;
 
 public:
-    explicit Editor(SquadreModel* sm, QWidget *parent = 0);
+    explicit Editor(SquadreModel* sm, ArbitriModel* am, QWidget *parent = 0);
 
 signals:
     void squadraChanged(); //
@@ -81,9 +93,11 @@ private slots:
     void modifica();
     void modificaTesserato();
     void modificaSquadra();
+    void modificaArbitro();
     void rimuovi();
     void rimuoviTesserato();
     void rimuoviSquadra();
+    void rimuoviArbitro();
     void updateList(int);
     void updateLayout();
     void itemSelected(QModelIndex);

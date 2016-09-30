@@ -1,8 +1,8 @@
 #include "personapage.h"
 #include <QMessageBox>
 
-PersonaPage::PersonaPage(SquadreModel *sm, QWidget *parent)
-    : QWizardPage(parent), squadre(sm)
+PersonaPage::PersonaPage(SquadreModel *sm, ArbitriModel* am, QWidget *parent)
+    : QWizardPage(parent), squadre(sm), arbitri (am)
 {
     createButtons();
     createEditor();
@@ -20,14 +20,18 @@ void PersonaPage::createButtons(){
     portiereButton = new QCheckBox(tr("Portiere"), this);
     allenatoreButton = new QRadioButton(tr("Allenatore"), this);
     connect(allenatoreButton, SIGNAL(clicked()), this, SLOT(changeEditor()));
+    //arbitroButton = new QRadioButton(tr("Arbitro"), this);
+    //connect(arbitroButton, SIGNAL(clicked()), this, SLOT(changeEditor()));
 
     radioButtonGroup = new QButtonGroup(this);
     radioButtonGroup->addButton(giocatoreButton, giocatore);
     radioButtonGroup->addButton(allenatoreButton, allenatore);
+    //radioButtonGroup->addButton(arbitroButton, arbitro);
 
     if(squadre->isEmpty()){
         giocatoreButton->setDisabled(true);
         allenatoreButton->setDisabled(true);
+        //arbitroButton->setChecked(true);
     }
 
     insertButton = new QPushButton(tr("Inserisci"), this);
@@ -64,6 +68,12 @@ void PersonaPage::createEditor(){
     squadraEdit = new QComboBox(this);
     squadraEdit->setModel(squadre);
 
+    /*
+     *livelloLabel = new QLabel(tr("Livello:"), this);
+     *livelloLabel->setAlignment(Qt::AlignCenter);
+     *livelloEdit = new QSpinBox(this);
+     *livelloEdit->setRange(0, 3);
+    */
 }
 
 void PersonaPage::createLayout(){
@@ -71,6 +81,7 @@ void PersonaPage::createLayout(){
     radioLayout->addWidget(giocatoreButton);
     radioLayout->addWidget(portiereButton);
     radioLayout->addWidget(allenatoreButton);
+    //radioLayout->addWidget(arbitroButton);
     radioLayout->addStretch(1);
 
     buttonGroupBox = new QGroupBox(tr("Nuovo"), this);
@@ -87,6 +98,8 @@ void PersonaPage::createLayout(){
     editorLayout->addWidget(numeroEdit, 4, 2);
     editorLayout->addWidget(squadraLabel, 5, 1);
     editorLayout->addWidget(squadraEdit, 5, 2, 1, 2);
+    //editorLayout->addWidget(livelloLabel, 6, 1);
+    //editorLayout->addWidget(livelloEdit, 6, 2);
 
     layout = new QHBoxLayout;
     layout->addWidget(buttonGroupBox);
@@ -114,11 +127,19 @@ void PersonaPage::changeEditor(){
         portiereButton->setEnabled(true);
         numeroEdit->setEnabled(true);
         squadraEdit->setEnabled(true);
+        //livelloEdit->setEnabled(false);
         break;
     case allenatore:
         portiereButton->setEnabled(false);
         numeroEdit->setEnabled(false);
         squadraEdit->setEnabled(true);
+        //livelloEdit->setEnabled(false);
+        break;
+    case arbitro:
+        portiereButton->setEnabled(false);
+        numeroEdit->setEnabled(false);
+        squadraEdit->setEnabled(false);
+        //livelloEdit->setEnabled(true);
         break;
     default:
         break;
@@ -157,11 +178,24 @@ void PersonaPage::insertPerson(){
                 squadre->addTesserato(all, Squadra(squadraEdit->currentText()));
             }
             break;
+        /*
+        *case arbitro:
+        *    {
+        *        Arbitro* arb = new Arbitro;
+        *        arb->setNome(nomeEdit->text());
+        *        arb->setCognome(cognomeEdit->text());
+        *        arb->setData(dataEdit->date());
+        *        arb->setLivello(livelloEdit->value());
+        *        arbitri->addArbitro(arb);
+        *    }
+        *    break;
+        */
         }
         nomeEdit->clear();
         cognomeEdit->clear();
         dataEdit->setDate(QDate(1990, 1, 1));
         numeroEdit->clear();
+        //livelloEdit->clear();
         emit personaCreata();
     }
     catch(Err_Tesserato e){

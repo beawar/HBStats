@@ -8,6 +8,7 @@
 #include "giocatore.h"
 #include "portiere.h"
 #include "allenatore.h"
+#include "arbitro.h"
 #include "pushbutton.h"
 
 class LinePartita : public QWidget
@@ -49,8 +50,10 @@ private slots:
 
     void updateGoals();
 
+
 public:
     explicit LinePartita(Tesserato* t, QWidget *parent = 0);
+    void updateTesserato(Tesserato* t);
 
 signals:
     void tiro(int, bool);

@@ -7,7 +7,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent), logoWidget(0), classificaWidget(0), toolBar(0), newWizard(0),
-  tabs(0), editor(0), squadre(new SquadreModel(this)), fileOpen(""), xml(squadre), modificato(false)
+  tabs(0), editor(0), squadre(new SquadreModel(this)), arbitri(new ArbitriModel(this)), fileOpen(""), xml(squadre, arbitri), modificato(false)
 {
     createLogoWidget();
     createActions();
@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setCentralWidget(logoWidget);
 
-    setWindowTitle(" HBS - HandBall Stats by Beatrice Guerra");
+    setWindowTitle("HandBall Stats by Beatrice Guerra");
     setMinimumSize(sizeHint());
 
 }
@@ -152,13 +152,16 @@ bool MainWindow::maybeSave(){
 }
 
 void MainWindow::newFile(){
-    newWizard = new NewWizard(squadre, this);
+    newWizard = new NewWizard(squadre, arbitri, this);
     newWizard->setAttribute(Qt::WA_DeleteOnClose);
     newWizard->setModal(true);
     newWizard->show();
     connect(newWizard, SIGNAL(partitaCreata()), this, SLOT(showPartita()));
     connect(newWizard, SIGNAL(squadraCreata()), this, SLOT(creaClassifica()));
     connect(newWizard, SIGNAL(dataChanged(bool)), this, SLOT(wasModified(bool)));
+    if(!editAct->isEnabled() && !squadre->isEmpty()){
+        editAct->setEnabled(true);
+    }
 }
 
 void MainWindow::open(){
@@ -166,6 +169,9 @@ void MainWindow::open(){
     if(!fileName.isNull()){
         if(squadre && !squadre->isEmpty()){
             squadre->clear();
+        }
+        if(arbitri && !arbitri->isEmpty()){
+            arbitri->clear();
         }
         try{
             xml.readFile(fileName);
@@ -181,7 +187,7 @@ void MainWindow::open(){
 }
 
 void MainWindow::save(){
-    if(!squadre->isEmpty()){
+    if(!squadre->isEmpty() || !arbitri->isEmpty()){
         if(!fileOpen.isEmpty()){
             QFile file(fileOpen);
             if(file.open(QIODevice::WriteOnly)){
@@ -231,7 +237,7 @@ void MainWindow::exportPng(){
 
 
 void MainWindow::edit(){
-    editor = new Editor(squadre, this);
+    editor = new Editor(squadre, arbitri, this);
     editor->setAttribute(Qt::WA_DeleteOnClose);
     editor->setModal(true);
 
@@ -260,13 +266,17 @@ void MainWindow::aboutQt(){
 void MainWindow::showPartita(){
     Squadra* home = newWizard->getHomeTeam();
     Squadra* guest = newWizard->getGuestTeam();
+    Arbitro* a1 = 0; /*newWizard->getArbitro1();*/
+    Arbitro* a2 = 0; /*newWizard->getArbitro2();*/
+    Arbitro::Categoria cat= newWizard->getCategoria();
 
-    tabs = new Tabs(home, guest, this);
+    tabs = new Tabs(home, guest, a1, a2, cat, this);
 
     classificaAct->setEnabled(false);
     exportAct->setEnabled(true);
     resetPartitaAct->setEnabled(true);
     closePartitaAct->setEnabled(true);
+    closeTabs->setEnabled(false);
 
     connect(exportAct, SIGNAL(triggered()), tabs, SLOT(exportPng()));
     connect(resetPartitaAct, SIGNAL(triggered()), tabs, SLOT(reset()));
@@ -356,6 +366,7 @@ void MainWindow::terminaPartita(){
     classificaAct->setEnabled(true);
     resetPartitaAct->setEnabled(false);
     closePartitaAct->setEnabled(false);
+    closeTabs->setEnabled(true);
     tabs->termina();
     modificato = true;
 

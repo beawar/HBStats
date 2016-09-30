@@ -9,6 +9,7 @@
 #include <QString>
 #include <QVBoxLayout>
 #include "squadremodel.h"
+#include "arbitrimodel.h"
 
 class IntroPage : public QWizardPage
 {
@@ -17,6 +18,7 @@ private:
     enum {persona, squadra, partita};
 
     SquadreModel* squadre;
+    ArbitriModel* arbitri;
 
     void createButtons();
     void createLayouts();
@@ -34,7 +36,7 @@ private slots:
     void setLabelText();
 
 public:
-    explicit IntroPage(SquadreModel *sm, QWidget *parent = 0);
+    explicit IntroPage(SquadreModel *sm, ArbitriModel *am, QWidget *parent = 0);
 
     int nextId() const;
 

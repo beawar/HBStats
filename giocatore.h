@@ -45,12 +45,12 @@ public:
 
     Giocatore& operator = (const Giocatore& g);
 
-    bool operator ==(const Giocatore& g) const;
-    bool operator !=(const Giocatore& g) const;
-    bool operator <(const Giocatore& g) const;
-    bool operator <=(const Giocatore& g) const;
-    bool operator >(const Giocatore& g) const;
-    bool operator >=(const Giocatore& g) const;
+    virtual bool operator ==(const Giocatore& g) const;
+    virtual bool operator !=(const Giocatore& g) const;
+    virtual bool operator <(const Giocatore& g) const;
+    virtual bool operator <=(const Giocatore& g) const;
+    virtual bool operator >(const Giocatore& g) const;
+    virtual bool operator >=(const Giocatore& g) const;
 
     virtual QString getInfo() const;
     virtual void reset();

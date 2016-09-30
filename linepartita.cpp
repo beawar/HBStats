@@ -142,7 +142,7 @@ void LinePartita::leftclickEscl(){
      }
      catch(Err_Esclusione e){
      QMessageBox::warning(this, tr("Errore"),
-                          tr("Persona già espulsa"),
+                          tr("Giocatore già espulso"),
                           QMessageBox::Cancel);
     }
     update();
@@ -229,7 +229,13 @@ void LinePartita::updateGoals(){
     update();
 }
 
+void LinePartita::updateTesserato(Tesserato *t){
+    tesserato = t;
+}
+
 void LinePartita::reset(){
     tesserato->reset();
     updateGoals();
+    emit rightclickAmmo();
+    emit rightclickEscl();
 }

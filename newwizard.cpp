@@ -2,18 +2,20 @@
 #include <QMessageBox>
 
 
-NewWizard::NewWizard(SquadreModel *sm, QWidget *parent) :
-    QWizard(parent), squadre(sm)
+NewWizard::NewWizard(SquadreModel *sm, ArbitriModel *am, QWidget *parent) :
+    QWizard(parent), squadre(sm), arbitri(am)
 {
     if(!squadre){
         squadre = new SquadreModel;
     }
+    if(!arbitri){
+        arbitri = new ArbitriModel;
+    }
 
-
-    introP = new IntroPage(sm, this);
-    personaP = new PersonaPage(sm, this);
+    introP = new IntroPage(sm, am, this);
+    personaP = new PersonaPage(sm, am, this);
     squadraP = new SquadraPage(sm, this);
-    partitaP = new PartitaPage(sm, this);
+    partitaP = new PartitaPage(sm, am, this);
 
     setPage(Page_Intro, introP);
     setPage(Page_Persona, personaP);
@@ -34,6 +36,18 @@ Squadra* NewWizard::getHomeTeam() const{
 
 Squadra* NewWizard::getGuestTeam() const{
     return squadre->at(field("partita.guestTeam").toInt());
+}
+
+Arbitro* NewWizard::getArbitro1() const{
+    return arbitri->at(field("partita.arbitro1").toInt());
+}
+
+Arbitro* NewWizard::getArbitro2() const{
+    return arbitri->at(field("partita.arbitro2").toInt());
+}
+
+Arbitro::Categoria NewWizard::getCategoria() const{
+    return partitaP->getCategoria();
 }
 
 void NewWizard::accept(){

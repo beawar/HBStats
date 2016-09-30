@@ -13,6 +13,8 @@ class Tabs : public QTabWidget
 private:
     Squadra* team1;
     Squadra* team2;
+    Arbitro* a1;
+    Arbitro* a2;
 
     QString pngOpen1;
     QString pngOpen2;
@@ -22,7 +24,7 @@ private:
     Partita* partita;
 
 public:
-    explicit Tabs(Squadra *s1, Squadra *s2, QWidget *parent = 0);
+    explicit Tabs(Squadra *s1, Squadra *s2, Arbitro *arb1, Arbitro *arb2, Arbitro::Categoria cat, QWidget *parent = 0);
 
 signals:
 

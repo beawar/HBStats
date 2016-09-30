@@ -1,10 +1,10 @@
 #include "intropage.h"
 #include "newwizard.h"
 
-IntroPage::IntroPage(SquadreModel* sm, QWidget *parent) :
-    QWizardPage(parent), squadre(sm)
+IntroPage::IntroPage(SquadreModel* sm, ArbitriModel *am, QWidget *parent) :
+    QWizardPage(parent), squadre(sm), arbitri(am)
 {
-    helpLabel = new QLabel(tr("Crea un nuovo giocatore o allenatore"), this);
+    helpLabel = new QLabel(tr("Crea un nuovo giocatore, allenatore o arbitro"), this);
     helpLabel->setWordWrap(true);
     createButtons();
     createLayouts();
@@ -15,7 +15,7 @@ IntroPage::IntroPage(SquadreModel* sm, QWidget *parent) :
 void IntroPage::setLabelText(){
     switch(radioButtonGroup->checkedId()){
     case persona:
-        helpLabel->setText(tr("Crea un nuovo giocatore o allenatore"));
+        helpLabel->setText(tr("Crea un nuovo giocatore, allenatore o arbitro"));
         update();
         break;
     case squadra:
@@ -23,7 +23,8 @@ void IntroPage::setLabelText(){
         update();
         break;
     case partita:
-        helpLabel->setText(tr("Crea una nuova partita tra due squadre"));
+        helpLabel->setText(tr("Crea una nuova partita tra due squadre."
+                              "Sono necessari almeno due arbitri e due squadre per sbloccare questo contenuto"));
         update();
         break;
     }
@@ -46,6 +47,7 @@ void IntroPage::createButtons(){
     radioButtonGroup->addButton(partitaRadioButton, partita);
 
     if(squadre->isEmpty()){
+        personaRadioButton->setEnabled(false);
         partitaRadioButton->setEnabled(false);
     }
 }

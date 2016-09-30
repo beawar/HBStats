@@ -3,8 +3,9 @@
 #include <QString>
 
 
-XmlHandler::XmlHandler(SquadreModel *sm)
-    :squadreModel(sm){
+XmlHandler::XmlHandler(SquadreModel *sm, ArbitriModel *am)
+    :squadreModel(sm), arbitriModel(am)
+{
     xmlWriter.autoFormatting();
 }
 
@@ -71,6 +72,16 @@ void XmlHandler::writeItem(){
         xmlWriter.writeEndElement();
     }
 
+    for(int i=0; i<arbitriModel->size(); ++i){
+        Arbitro* arbitro = arbitriModel->at(i);
+        xmlWriter.writeStartElement("Arbitro");
+        xmlWriter.writeTextElement("Nome", arbitro->getNome());
+        xmlWriter.writeTextElement("Cognome", arbitro->getCognome());
+        QString data = arbitro->getData().toString("dd/MM/yyyy");
+        xmlWriter.writeTextElement("Nascita", data);
+        xmlWriter.writeTextElement("Livello", QString::number(arbitro->getLivello()));
+        xmlWriter.writeEndElement();
+    }
 }
 
 void XmlHandler::readFile(const QString &filename) throw(Err_Open){
@@ -85,6 +96,9 @@ void XmlHandler::readFile(const QString &filename) throw(Err_Open){
             if(xmlReader.isStartElement()){
                 if(xmlReader.name() == "Squadra"){
                     readSquadra();
+                }
+                else if(xmlReader.name() == "Arbitro"){
+                    readArbitro();
                 }
             }
             xmlReader.readNext();
@@ -204,4 +218,30 @@ void XmlHandler::readAllenatore(const Squadra& squadra){
         xmlReader.readNext();
     }
     squadreModel->addTesserato(allenatore, squadra);
+}
+
+void XmlHandler::readArbitro(){
+    Q_ASSERT(xmlReader.isStartElement() && xmlReader.name() == "Arbitro");
+    Arbitro* arbitro = new Arbitro;
+
+    while(!xmlReader.isEndElement()){
+        if(xmlReader.name() == "Nome"){
+            QString nome = xmlReader.readElementText();
+            arbitro->setNome(nome);
+        }
+        else if(xmlReader.name() == "Cognome"){
+            QString cognome = xmlReader.readElementText();
+            arbitro->setCognome(cognome);
+        }
+        else if(xmlReader.name() == "Nascita"){
+            QString data = xmlReader.readElementText();
+            arbitro->setData(QDate::fromString(data, "dd/MM/yyyy"));
+        }
+        else if(xmlReader.name() == "livello"){
+            QString livello = xmlReader.readElementText();
+            arbitro->setLivello(livello.toUInt());
+        }
+        xmlReader.readNext();
+    }
+    arbitriModel->addArbitro(arbitro);
 }

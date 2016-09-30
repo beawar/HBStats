@@ -7,6 +7,7 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 #include "squadra.h"
+#include "arbitro.h"
 #include "linepartita.h"
 
 class Partita : public QWidget
@@ -21,6 +22,10 @@ private:
 
     Squadra* homeTeam;
     Squadra* guestTeam;
+
+    Arbitro* arbitro1;
+    Arbitro* arbitro2;
+    Arbitro::Categoria categoria;
 
     int goalHome;
     int goalGuest;
@@ -40,7 +45,7 @@ private:
     QLabel* punteggio;
 
 public:
-    explicit Partita(Squadra* home, Squadra* guest, QWidget *parent = 0);
+    explicit Partita(Squadra* home, Squadra* guest, Arbitro* a1, Arbitro* a2, Arbitro::Categoria cat, QWidget *parent = 0);
 
 signals:
     void dataChanged();

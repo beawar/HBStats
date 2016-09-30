@@ -5,6 +5,7 @@
 #include <QXmlStreamWriter>
 #include <QFile>
 #include "squadremodel.h"
+#include "arbitrimodel.h"
 #include "eccezioni.h"
 
 class XmlHandler
@@ -19,9 +20,9 @@ private:
     QXmlStreamWriter xmlWriter;
     QXmlStreamReader xmlReader;
     SquadreModel* squadreModel;
-
+    ArbitriModel* arbitriModel;
 public:
-    XmlHandler(SquadreModel* sm);
+    XmlHandler(SquadreModel* sm, ArbitriModel* am);
     void writeFile(QFile& file) throw(Err_Save);
     void readFile(const QString& filename) throw(Err_Open);
 };

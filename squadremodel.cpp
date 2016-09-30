@@ -117,20 +117,20 @@ void SquadreModel::sort(int column, Qt::SortOrder order){
     if(column == PuntiRole && order == Qt::AscendingOrder){
         for(int i=1; i<squadre.size(); ++i){
             bool ordinato = false;
-            for(int j=i-1; j>=0 && !ordinato; --j){
-                Squadra* s1 = squadre.at(j+1);
+            Squadra* s1 = squadre.at(i);
+            for(int j=0; j<i && !ordinato; ++j){
                 Squadra* s2 = squadre.at(j);
                 if(s1->getPunti() > s2->getPunti()
                         || (s1->getPunti() == s2->getPunti()
-                            && s1->getDifferenzaReti() > s2->getDifferenzaReti())
+                                && s1->getDifferenzaReti() > s2->getDifferenzaReti())
                         || (s1->getPunti() == s2->getPunti()
-                            && s1->getDifferenzaReti() == s2->getDifferenzaReti()
-                            && s1->getTiriSegnati() > s2->getTiriSegnati())){
-                    Squadra temp = *s1;
-                    *s1 = *s2;
-                    *s2 = temp;
-                }
-                else{
+                                && s1->getDifferenzaReti() == s2->getDifferenzaReti()
+                                && s1->getGoalSubiti() < s2->getGoalSubiti())
+                        || (s1->getPunti() == s2->getPunti()
+                                && s1->getDifferenzaReti() == s2->getDifferenzaReti()
+                                && s1->getGoalSubiti() == s2->getGoalSubiti()
+                                && s1->getGoalFatti() > s2->getGoalFatti())){
+                    squadre.move(i, j);
                     ordinato = true;
                 }
             }
@@ -139,9 +139,6 @@ void SquadreModel::sort(int column, Qt::SortOrder order){
 }
 
 void SquadreModel::clear(){
-    for(QList<Squadra*>::Iterator it = squadre.begin(); it != squadre.end(); it++){
-        delete *it;
-    }
     squadre.clear();
 }
 

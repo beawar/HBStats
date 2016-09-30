@@ -10,9 +10,9 @@
 #include <QSpinBox>
 #include <QLabel>
 #include <QRadioButton>
-#include <vector>
 #include "checklist.h"
 #include "squadremodel.h"
+#include "arbitrimodel.h"
 #include "tabs.h"
 
 class PartitaPage : public QWizardPage
@@ -26,11 +26,13 @@ private:
     Squadra* guestTeam() const;
 
     SquadreModel* squadre;
+    ArbitriModel* arbitri;
 
     QVBoxLayout* layout;
 
     QGroupBox* squadra1Group;
     QGroupBox* squadra2Group;
+    QGroupBox* arbitriGroup;
     QGroupBox* radioGroup;
 
     QRadioButton* nomeButton;
@@ -38,11 +40,16 @@ private:
 
     QComboBox* squadra1ComboBox;
     QComboBox* squadra2ComboBox;
+    QComboBox* arbitro1ComboBox;
+    QComboBox* arbitro2ComboBox;
+
+    QLabel* categoriaLabel;
+    QComboBox* categoria;
 
     QListView* squadra1List;
     QListView* squadra2List;
 
-    std::vector<CheckList*> checkArray;
+    Vettore<CheckList*> checkArray;
 
     CheckList* squadra1;
     CheckList* squadra2;
@@ -54,11 +61,12 @@ private slots:
     void sort();
 
 public:
-    explicit PartitaPage(SquadreModel* sm, QWidget *parent = 0);
+    explicit PartitaPage(SquadreModel* sm, ArbitriModel* am, QWidget *parent = 0);
 
     int nextId() const;
     bool validatePage() const;
 
+    Arbitro::Categoria getCategoria() const;
 signals:
 
 public slots:

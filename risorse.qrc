@@ -19,4 +19,7 @@
         <file>images/portiere_perc.png</file>
         <file>images/close_red.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>stylesheet.qss</file>
+    </qresource>
 </RCC>

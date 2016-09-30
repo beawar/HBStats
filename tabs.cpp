@@ -5,8 +5,8 @@
 #include <QFileDialog>
 #include <QTabBar>
 
-Tabs::Tabs(Squadra *s1, Squadra *s2, QWidget *parent) :
-    QTabWidget(parent), team1(s1), team2(s2),
+Tabs::Tabs(Squadra *s1, Squadra *s2, Arbitro *arb1, Arbitro *arb2, Arbitro::Categoria cat, QWidget *parent) :
+    QTabWidget(parent), team1(s1), team2(s2), a1(arb1), a2(arb2),
     statTeam1(0), statTeam2(0), partita(0)
 {
 
@@ -18,7 +18,7 @@ Tabs::Tabs(Squadra *s1, Squadra *s2, QWidget *parent) :
         statTeam2 = new Stat(team2);
         statTeam2->setObjectName("Stat2");
 
-        partita = new Partita(team1, team2);
+        partita = new Partita(team1, team2, a1, a2, cat);
 
         addTab(partita, tr("Partita"));
         addTab(statTeam1, team1->getNome());

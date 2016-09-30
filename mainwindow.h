@@ -12,6 +12,7 @@
 #include <QStackedWidget>
 #include "newwizard.h"
 #include "squadremodel.h"
+#include "arbitrimodel.h"
 #include "xmlhandler.h"
 #include "tabs.h"
 #include "editor.h"
@@ -26,6 +27,7 @@ private:
     void createToolBar();
     bool maybeSave();
 
+    QStackedWidget stackedWidget;
     QWidget* logoWidget;
     QWidget* classificaWidget;
 
@@ -54,6 +56,7 @@ private:
     QAction* closeTabs;
 
     SquadreModel* squadre;
+    ArbitriModel* arbitri;
 
     QString fileOpen;
     XmlHandler xml;

@@ -3,8 +3,8 @@
 #include <QMessageBox>
 
 
-PartitaPage::PartitaPage(SquadreModel *sm, QWidget *parent) :
-    QWizardPage(parent), squadre(sm), squadra1(0), squadra2(0)
+PartitaPage::PartitaPage(SquadreModel *sm, ArbitriModel *am, QWidget *parent) :
+    QWizardPage(parent), squadre(sm), arbitri(am), squadra1(0), squadra2(0)
 { 
 
     if(!squadre->isEmpty()){
@@ -22,6 +22,8 @@ PartitaPage::PartitaPage(SquadreModel *sm, QWidget *parent) :
 
         registerField("partita.homeTeam", squadra1ComboBox);
         registerField("partita.guestTeam", squadra2ComboBox);
+        //registerField("partita.arbitro1", arbitro1ComboBox);
+        //registerField("partita.arbitro2", arbitro2ComboBox);
     }
 }
 
@@ -38,6 +40,12 @@ void PartitaPage::createView(){
     squadra2ComboBox = new QComboBox(this);
     squadra2ComboBox->setModel(squadre);
 
+    //arbitro1ComboBox = new QComboBox(this);
+    //arbitro1ComboBox->setModel(arbitri);
+
+    //arbitro2ComboBox = new QComboBox(this);
+    //arbitro2ComboBox->setModel(arbitri);
+
     squadra1 = checkArray[squadra1ComboBox->currentIndex()];
     squadra2 = checkArray[squadra2ComboBox->currentIndex()];
 
@@ -46,6 +54,13 @@ void PartitaPage::createView(){
 
     squadra2List = new QListView(this);
     squadra2List->setModel(squadra2);
+
+    categoriaLabel = new QLabel(tr("Categoria: "), this);
+
+    categoria = new QComboBox(this);
+    categoria->addItem(tr("Regionale"));
+    categoria->addItem(tr("Nazionale"));
+    categoria->addItem(tr("Internazionale"));
 
     connect(nomeButton, SIGNAL(clicked()), this, SLOT(sort()));
     connect(numeroButton, SIGNAL(clicked()), this, SLOT(sort()));
@@ -65,6 +80,7 @@ void PartitaPage::createView(){
 void PartitaPage::createLayout(){
     squadra1Group = new QGroupBox(tr("In Casa"), this);
     squadra2Group = new QGroupBox(tr("Ospiti"), this);
+    //arbitriGroup = new QGroupBox(tr("Arbitri"), this);
     radioGroup = new QGroupBox(tr("Ordina per:"), this);
 
     QVBoxLayout* squadra1Layout = new QVBoxLayout;
@@ -75,18 +91,31 @@ void PartitaPage::createLayout(){
     squadra2Layout->addWidget(squadra2ComboBox);
     squadra2Layout->addWidget(squadra2List);
 
+    //QHBoxLayout* arbitriLayout = new QHBoxLayout;
+    //arbitriLayout->addWidget(arbitro1ComboBox);
+    //arbitriLayout->addWidget(arbitro2ComboBox);
+
     QVBoxLayout* radioLayout = new QVBoxLayout;
     radioLayout->addWidget(nomeButton);
     radioLayout->addWidget(numeroButton);
 
     squadra1Group->setLayout(squadra1Layout);
     squadra2Group->setLayout(squadra2Layout);
+    //arbitriGroup->setLayout(arbitriLayout);
     radioGroup->setLayout(radioLayout);
 
-    layout->addWidget(squadra1Group);
-    layout->addWidget(radioGroup);
-    layout->addWidget(squadra2Group);
+    QHBoxLayout* squadreLayout = new QHBoxLayout;
+    squadreLayout->addWidget(squadra1Group);
+    squadreLayout->addWidget(radioGroup);
+    squadreLayout->addWidget(squadra2Group);
 
+    QHBoxLayout* categoriaLayout = new QHBoxLayout;
+    categoriaLayout->addWidget(categoriaLabel);
+    categoriaLayout->addWidget(categoria);
+
+    layout->addLayout(categoriaLayout);
+    layout->addLayout(squadreLayout);
+    //layout->addWidget(arbitriGroup);
 }
 
 Squadra* PartitaPage::homeTeam() const{
@@ -103,6 +132,7 @@ int PartitaPage::nextId() const{
 
 bool PartitaPage::validatePage() const{
     if(squadra1ComboBox->currentText() == squadra2ComboBox->currentText() ||
+            //arbitro1ComboBox->currentText() == arbitro2ComboBox->currentText() ||
             squadra1->checkedGiocatori() < 7 || squadra2->checkedGiocatori() < 7){
         return false;
     }
@@ -110,6 +140,17 @@ bool PartitaPage::validatePage() const{
 
 }
 
+Arbitro::Categoria PartitaPage::getCategoria() const{
+    if(categoria->currentText() == tr("Regionale")){
+        return Arbitro::regionale;
+    }
+    else if(categoria->currentText() == tr("Nazionale")){
+        return Arbitro::nazionale;
+    }
+    else if(categoria->currentText() == tr("Internazionale"))
+        return Arbitro::internazionale;
+
+}
 
 void PartitaPage::updateList(){
     squadra1 = checkArray[squadra1ComboBox->currentIndex()];

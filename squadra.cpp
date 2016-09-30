@@ -96,7 +96,7 @@ int Squadra::getDifferenzaReti() const{
 
 unsigned int Squadra::getTiriSegnati() const{
     unsigned int tot=0;
-    for(vector<Tesserato*>::const_iterator cit = tesserati.begin(); cit<tesserati.end(); ++cit){
+    for(Vettore<Tesserato*>::const_iterator cit = tesserati.cbegin(); cit<tesserati.cend(); ++cit){
         const Giocatore* g = dynamic_cast<const Giocatore*>(*cit);
         if(g){
             tot+= g->getTiriSegnati();
@@ -107,7 +107,7 @@ unsigned int Squadra::getTiriSegnati() const{
 
 unsigned int Squadra::getTiriEffettuati() const{
     unsigned int tot=0;
-    for(vector<Tesserato*>::const_iterator cit = tesserati.begin(); cit<tesserati.end(); ++cit){
+    for(Vettore<Tesserato*>::const_iterator cit = tesserati.cbegin(); cit<tesserati.cend(); ++cit){
         const Giocatore* g = dynamic_cast<const Giocatore*>(*cit);
         if(g){
             tot+= g->getTiriTotali();
@@ -118,7 +118,7 @@ unsigned int Squadra::getTiriEffettuati() const{
 
 unsigned int Squadra::getRigoriSegnati() const{
     unsigned int tot=0;
-    for(vector<Tesserato*>::const_iterator cit = tesserati.begin(); cit<tesserati.end(); ++cit){
+    for(Vettore<Tesserato*>::const_iterator cit = tesserati.cbegin(); cit<tesserati.cend(); ++cit){
         const Giocatore* g = dynamic_cast<const Giocatore*>(*cit);
         if(g){
             tot+= g->getRigoriSegnati();
@@ -129,7 +129,7 @@ unsigned int Squadra::getRigoriSegnati() const{
 
 unsigned int Squadra::getRigoriEffettuati() const{
     unsigned int tot=0;
-    for(vector<Tesserato*>::const_iterator cit = tesserati.begin(); cit<tesserati.end(); ++cit){
+    for(Vettore<Tesserato*>::const_iterator cit = tesserati.cbegin(); cit<tesserati.cend(); ++cit){
         const Giocatore* g = dynamic_cast<const Giocatore*>(*cit);
         if(g){
             tot+= g->getRigoriTotali();
@@ -140,7 +140,7 @@ unsigned int Squadra::getRigoriEffettuati() const{
 
 unsigned int Squadra::getTiriParati() const{
     unsigned int tot=0;
-    for(vector<Tesserato*>::const_iterator cit = tesserati.begin(); cit<tesserati.end(); ++cit){
+    for(Vettore<Tesserato*>::const_iterator cit = tesserati.cbegin(); cit<tesserati.cend(); ++cit){
         const Portiere* p = dynamic_cast<const Portiere*>(*cit);
         if(p){
             tot+= p->getTiriParati();
@@ -151,7 +151,7 @@ unsigned int Squadra::getTiriParati() const{
 
 unsigned int Squadra::getTiriRicevuti() const{
     unsigned int tot=0;
-    for(vector<Tesserato*>::const_iterator cit = tesserati.begin(); cit<tesserati.end(); ++cit){
+    for(Vettore<Tesserato*>::const_iterator cit = tesserati.cbegin(); cit<tesserati.cend(); ++cit){
         const Portiere* p = dynamic_cast<const Portiere*>(*cit);
         if(p){
             tot+= p->getTiriRicevuti();
@@ -162,7 +162,7 @@ unsigned int Squadra::getTiriRicevuti() const{
 
 unsigned int Squadra::getRigoriParati() const{
     unsigned int tot=0;
-    for(vector<Tesserato*>::const_iterator cit = tesserati.begin(); cit<tesserati.end(); ++cit){
+    for(Vettore<Tesserato*>::const_iterator cit = tesserati.cbegin(); cit<tesserati.cend(); ++cit){
         const Portiere* p = dynamic_cast<const Portiere*>(*cit);
         if(p){
             tot+= p->getRigoriParati();
@@ -173,7 +173,7 @@ unsigned int Squadra::getRigoriParati() const{
 
 unsigned int Squadra::getRigoriRicevuti() const{
     unsigned int tot=0;
-    for(vector<Tesserato*>::const_iterator cit = tesserati.begin(); cit<tesserati.end(); ++cit){
+    for(Vettore<Tesserato*>::const_iterator cit = tesserati.cbegin(); cit<tesserati.cend(); ++cit){
         const Portiere* p = dynamic_cast<const Portiere*>(*cit);
         if(p){
             tot+= p->getRigoriRicevuti();
@@ -199,11 +199,16 @@ double Squadra::getParateRigoriPerc() const{
 }
 
 void Squadra::addTesserato(Tesserato *t) throw(Err_Tesserato){
-    if(trova(*t)){
-        throw Err_Tesserato();
+    if(!dynamic_cast<const Arbitro*>(t)){
+        if(trova(*t)){
+            throw Err_Tesserato();
+        }
+        else{
+            tesserati.push_back(t);
+        }
     }
     else{
-        tesserati.push_back(t);
+        throw Err_Tesserato();
     }
 }
 
@@ -212,11 +217,9 @@ void Squadra::modificaTesserato(Tesserato* cur, const Tesserato& nuovo){
 }
 
 void Squadra::removeTesserato(Tesserato* t){
-    for(vector<Tesserato*>::iterator it = tesserati.begin(); it!=tesserati.end(); ++it){
-        if(trova(*t) == *it){
-            tesserati.erase(it);
-            delete t;
-        }
+    if(trova(*t)){
+        tesserati.erase(t);
+        delete t;
     }
 }
 
@@ -239,7 +242,7 @@ void Squadra::modifica(const Squadra& s){
 }
 
 Tesserato* Squadra::trova(Tesserato& t) const{
-    for(vector<Tesserato*>::const_iterator it=tesserati.begin(); it<tesserati.end(); ++it){
+    for(Vettore<Tesserato*>::iterator it=tesserati.begin(); it<tesserati.end(); ++it){
         if(**it == t){
             return *it;
         }
@@ -269,52 +272,47 @@ bool Squadra::operator ==(const Squadra& s) const{
 }
 
 void Squadra::sortByName(){
-    vector<Tesserato*> giocatori;
-    vector<Tesserato*> allenatori;
-    for(vector<Tesserato*>::iterator t = tesserati.begin(); t!=tesserati.end(); ++t){
+    Vettore<Tesserato*> giocatori;
+    Vettore<Tesserato*> allenatori;
+    for(int i=0; i<tesserati.size(); ++i){
         bool inserito = false;
-        if(dynamic_cast<Giocatore*>(*t)){
-            for(vector<Tesserato*>::iterator g2 = giocatori.begin(); g2!=giocatori.end() && !inserito; ++g2){
-                if(**t < **g2){
-                    giocatori.insert(g2, *t);
+        if(dynamic_cast<Giocatore*>(tesserati[i])){
+            for(int j=0; j<giocatori.size() && !inserito; ++j){
+                if(*tesserati[i] < *giocatori[j]){
+                    giocatori.insert(j, tesserati[i]);
                     inserito = true;
                 }
             }
             if(!inserito){
-                giocatori.push_back(*t);
+                giocatori.push_back(tesserati[i]);
             }
         }
         else{
-            for(vector<Tesserato*>::iterator all = allenatori.begin(); all!=allenatori.end(); ++all){
-                if(**t < **all){
-                    allenatori.insert(all, sizeof(*t), *t);
+            for(int j=0; j<allenatori.size() && !inserito; ++j){
+                if(*tesserati[i] < *allenatori[j]){
+                    allenatori.insert(j, tesserati[i]);
                     inserito = true;
                 }
             }
             if(!inserito){
-                allenatori.push_back(*t);
+                allenatori.push_back(tesserati[i]);
             }
         }
     }
-    if(!giocatori.empty()){
-        tesserati.insert(tesserati.end(), giocatori.begin(), --giocatori.end());
-    }
-    if(!allenatori.empty()){
-        tesserati.insert(tesserati.end(), allenatori.begin(), --allenatori.end());
-    }
+    tesserati = giocatori + allenatori;
 }
 
 void Squadra::sortByNumber(){
-    vector<Tesserato*> giocatori;
-    vector<Tesserato*> allenatori;
-    for(vector<Tesserato*>::iterator t = tesserati.begin(); t!=tesserati.end(); ++t){
+    Vettore<Tesserato*> giocatori;
+    Vettore<Tesserato*> allenatori;
+    for(int i=0; i<tesserati.size(); ++i){
         bool inserito = false;
-        Giocatore* gioc = dynamic_cast<Giocatore*>(*t);
+        Giocatore* gioc = dynamic_cast<Giocatore*>(tesserati[i]);
         if(gioc){
-            for(vector<Tesserato*>::iterator it = giocatori.begin(); it!=giocatori.end() && !inserito; ++it){
-                Giocatore* g2 = dynamic_cast<Giocatore*>(*it);
+            for(int j=0; j<giocatori.size() && !inserito; ++j){
+                Giocatore* g2 = dynamic_cast<Giocatore*>(giocatori[j]);
                 if(gioc->getNumero() < g2->getNumero() || (gioc->getNumero() == g2->getNumero() && *gioc < *g2)){
-                    giocatori.insert(t, sizeof(gioc), gioc);
+                    giocatori.insert(j, gioc);
                     inserito = true;
                 }
             }
@@ -323,19 +321,18 @@ void Squadra::sortByNumber(){
             }
         }
         else{
-            for(vector<Tesserato*>::iterator all = allenatori.begin(); all!=allenatori.end(); ++all){
-                if(**t < **all){
-                    allenatori.insert(all, sizeof(*t), *t);
+            for(int j=0; j<allenatori.size() && !inserito; ++j){
+                if(*tesserati[i] < *allenatori[j]){
+                    allenatori.insert(j, tesserati[i]);
                     inserito = true;
                 }
             }
             if(!inserito){
-                allenatori.push_back(*t);
+                allenatori.push_back(tesserati[i]);
             }
         }
     }
-    tesserati.insert(tesserati.end(), giocatori.begin(), --giocatori.end());
-    tesserati.insert(tesserati.end(), allenatori.begin(), --allenatori.end());
+    tesserati = giocatori + allenatori;
 }
 
 void Squadra::reset(){
@@ -346,7 +343,7 @@ void Squadra::reset(){
 }
 
 void Squadra::clear(){
-    for(vector<Tesserato*>::iterator it = tesserati.begin(); it!=tesserati.end(); ++it){
+    for(Vettore<Tesserato*>::iterator it = tesserati.begin(); it!=tesserati.end(); ++it){
         delete (*it);
     }
     tesserati.clear();
@@ -357,7 +354,7 @@ unsigned int Squadra::size() const{
 }
 
 Squadra::~Squadra(){
-    for(vector<Tesserato*>::iterator it = tesserati.begin(); it!=tesserati.end(); ++it){
+    for(Vettore<Tesserato*>::iterator it = tesserati.begin(); it!=tesserati.end(); ++it){
         delete (*it);
     }
 }
