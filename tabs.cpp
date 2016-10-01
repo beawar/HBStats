@@ -29,6 +29,7 @@ Tabs::Tabs(Squadra *s1, Squadra *s2, Arbitro *arb1, Arbitro *arb2, Arbitro::Cate
 
         connect(partita, SIGNAL(dataChanged()), statTeam1, SLOT(updateDati()));
         connect(partita, SIGNAL(dataChanged()), statTeam2, SLOT(updateDati()));
+        connect(partita, SIGNAL(dataChanged()), this, SLOT(dataChanged()));
     }
 }
 
@@ -71,11 +72,15 @@ void Tabs::exportPng(){
     }
 }
 
+void Tabs::dataChanged(){
+    emit resetted(false); //Permette di disabilitare l'azione closeTabs in MAINWINDOW
+}
 
 void Tabs::reset(){
     partita->reset();
     statTeam1->updateDati();
     statTeam2->updateDati();
+    emit resetted(true);
 }
 
 void Tabs::termina(){

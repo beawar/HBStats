@@ -21,7 +21,7 @@ Stat::Stat(Squadra *s, QWidget *parent) :
     font2.setPointSize(14);
     percSquadra = new QLabel(this);
     percSquadra->setText(tr("Realizzazioni: %1% (Rigori: %2%)         Parate: %3% (Rigori: %4%)")
-                         .arg("--", "--", "--", "--");
+                         .arg("--", "--", "--", "--"));
     percSquadra->setFont(font2);
     percSquadra->setAlignment(Qt::AlignLeft);
 
@@ -56,6 +56,7 @@ void Stat::createHeader(){
 
     QFont bold = numero->font();
     bold.setBold(true);
+    bold.setPointSize(13);
     numero->setFont(bold);
 
     cognome = new QLabel(tr("Cognome"), this);

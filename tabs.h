@@ -27,9 +27,11 @@ public:
     explicit Tabs(Squadra *s1, Squadra *s2, Arbitro *arb1, Arbitro *arb2, Arbitro::Categoria cat, QWidget *parent = 0);
 
 signals:
+    void resetted(bool);
 
 public slots:
     void exportPng();
+    void dataChanged();
     void reset();
     void termina();
 };

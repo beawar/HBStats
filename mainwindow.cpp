@@ -280,6 +280,7 @@ void MainWindow::showPartita(){
 
     connect(exportAct, SIGNAL(triggered()), tabs, SLOT(exportPng()));
     connect(resetPartitaAct, SIGNAL(triggered()), tabs, SLOT(reset()));
+    connect(tabs, SIGNAL(resetted(bool)), this, SLOT(enable_closeTabs(bool)));
 
     setCentralWidget(tabs);
 }
@@ -379,6 +380,10 @@ void MainWindow::chiudiTabs(){
     resetPartitaAct->setEnabled(false);
     closePartitaAct->setEnabled(false);
     classificaAct->setEnabled(true);
+}
+
+void MainWindow::enable_closeTabs(bool e){
+    closeTabs->setEnabled(e);
 }
 
 void MainWindow::wasModified(bool mod){

@@ -236,6 +236,11 @@ void LinePartita::updateTesserato(Tesserato *t){
 void LinePartita::reset(){
     tesserato->reset();
     updateGoals();
-    emit rightclickAmmo();
-    emit rightclickEscl();
+    //Reset ammonizioni
+    ammoButton->setStyleSheet("/**/");
+    tesserato->ammonito(false);
+    //Reset esclusioni
+    esclButton->setStyleSheet("/**/");
+    tesserato->escluso(false);
+    update();
 }

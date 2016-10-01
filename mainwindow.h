@@ -78,6 +78,7 @@ private slots:
     void creaClassifica();
     void terminaPartita();
     void chiudiTabs();
+    void enable_closeTabs(bool);
 
     void wasModified(bool);
 protected:

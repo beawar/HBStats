@@ -324,15 +324,18 @@ void Partita::termina(){
 void Partita::reset(){
     goalHome = 0;
     goalGuest = 0;
-
+    int count = 0;
     for(int i = 0; i<homeTeam->size(); ++i){
         if(homeTeam->at(i)->isChecked()){
-            homeLines[i]->reset();
+            homeLines[count]->reset();
+            count++;
         }
     }
+    count = 0;
     for(int i = 0; i<guestTeam->size(); ++i){
         if(homeTeam->at(i)->isChecked()){
-            guestLines[i]->reset();
+            guestLines[count]->reset();
+            count++;
         }
     }
     updatePunteggio();
