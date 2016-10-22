@@ -14,48 +14,47 @@ Stat::Stat(Squadra *s, QWidget *parent) :
     QFont font;
     font.setBold(true);
     font.setItalic(true);
-    font.setPointSize(18);
+    font.setPointSize(14);
     squadraLabel = new QLabel(squadra->getNome(), this);
     squadraLabel->setFont(font);
 
     QFont font2;
     font2.setBold(true);
     font2.setItalic(false);
-    font2.setPointSize(14);
+    font2.setPointSize(10);
     percSquadra = new QLabel(this);
-    percSquadra->setText(tr("Realizzazioni: %1% (Rigori: %2%)         Parate: %3% (Rigori: %4%)")
+    percSquadra->setText(tr("Realizzazioni: %1% (Rigori: %2%) Parate: %3% (Rigori: %4%)")
                          .arg("--", "--", "--", "--"));
     percSquadra->setFont(font2);
     percSquadra->setAlignment(Qt::AlignLeft);
 
-    //Creating and setting a groupbox that contain all the header labels
-    QGroupBox* headerGroup = new QGroupBox(this);
-    headerGroup->setObjectName("HeaderGroup");
-    headerGroup->setLayout(headerLayout);
 
     QHBoxLayout* squadraLayout = new QHBoxLayout;
     squadraLayout->addWidget(squadraLabel);
     squadraLayout->addWidget(percSquadra);
 
-    //create and set a groupbox for team name and global stats
-    QGroupBox* squadraGroup = new QGroupBox(this);
-    squadraGroup->setObjectName("SquadraGroup");
-    squadraGroup->setLayout(squadraLayout);
-
     QVBoxLayout* layout = new QVBoxLayout;
-    layout->addWidget(squadraGroup);
-    layout->addWidget(headerGroup);
+    layout->addLayout(squadraLayout);
+    layout->addLayout(headerLayout);
+
+    //Creating and setting a groupbox that contain all the header labels
+    QGroupBox* headerGroup = new QGroupBox(this);
+    headerGroup->setObjectName("HeaderGroup");
+    headerGroup->setLayout(layout);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(headerGroup);
 
     int j = 0;
     for(int i=0; i<squadra->size() && j<maxPersone; ++i){
         if(squadra->at(i)->isChecked()){
             persona[j] = new LineStat(squadra->at(i), this);
-            layout->addWidget(persona[j]);
+            mainLayout->addWidget(persona[j]);
             j++;
         }
     }
     persona[j-1]->setObjectName("LastPerson");
-    setLayout(layout);
+    setLayout(mainLayout);
 }
 
 void Stat::createHeader(){
@@ -136,7 +135,7 @@ void Stat::paintEvent(QPaintEvent *e){
 }
 
 void Stat::updateDati(){
-    percSquadra->setText(tr("Realizzazioni: %1% (Rigori: %2%)         Parate: %3% (Rigori: %4%)")
+    percSquadra->setText(tr("Realizzazioni: %1% (Rigori: %2%) Parate: %3% (Rigori: %4%)")
                          .arg(QString::number(squadra->getTiriPerc(), 'f', 2))
                          .arg(QString::number(squadra->getRigoriPerc(), 'f', 2))
                          .arg(QString::number(squadra->getParatePerc(), 'f', 2))

@@ -13,34 +13,40 @@ QToolBar {
 }
 
 Stat{
-    background-image: url(:/images/images/Sfondo_logo.png);
-    background-repeat: no-repeat;
-    background-position: center center;
+    background-image: url(:/images/images/Sfondo_PAL.png);
+    background-position: left top;
     background-origin: content;
 }
 
-QGroupBox#SquadraGroup{
+QGroupBox#HeaderGroup{
     background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                  stop:0 rgba(192,192,192,50), stop: 0.5 rgba(128,128,128,50), stop:1 rgba(192,192,192,50))
+                  stop:0 rgba( 211, 211, 211,70%), stop: 0.75 rgba(255,255,255,70%));
+    border: none;
+    /*border-radius: 0.5em 2em;*/
 }
 
-Stat Label{
-    color: black;
-}
-
-Stat Label#numero{
+LineStat QLabel{
     color: white;
+    font-size: 12px;
     font-weight: bold;
-    background-color: rgba(0, 0, 128, 70%);
-    border: 1px solid white;
 }
+
 
 LineStat QGroupBox {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                    stop: 0 #E0E0E0, stop: 1 #FFFFFF);
-    border: 2px solid gray;
-    border-radius: 5px;
-/* margin-top: 1ex;  leave space at the top for the title */
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                    stop:0 rgba( 0, 0, 139,70%), stop: 0.75 rgba(255,255,255,70%));
+    border: 1px solid black;
+    /*border-radius: 0.5em 2em;*/
+    border-radius: 7px;
+    /* margin-top: 1ex;  leave space at the top for the title */
+}
+
+
+Stat #numero{
+    color: white;
+    font-weight: bold;
+    background-color: navy;
+    border: 1px solid white;
 }
 
 QListView {
@@ -74,13 +80,13 @@ QMenu::item {
 }
 
 QMenu::item:selected {
-    border-color: darkblue;
-    background: rgba(100, 100, 100, 150);
+    border-color: skyblue;
+    background: rgba(135, 206, 235, 70%);
 }
 
 QMenu::separator {
-    height: 2px;
-    background: darkgrey;
+    height: 1px;
+    background: navy;
     margin-left: 10px;
     margin-right: 5px;
 }
