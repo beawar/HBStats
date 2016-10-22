@@ -24,6 +24,7 @@
         <file>images/circle_blue.png</file>
         <file>images/bullet-black.png</file>
         <file>images/bullet-red.png</file>
+        <file>images/Sfondo_PAL.png</file>
     </qresource>
     <qresource prefix="/">
         <file>qstyle.qss</file>
