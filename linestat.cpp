@@ -23,16 +23,19 @@ LineStat::LineStat(Tesserato*t, QWidget *parent) :
     QGroupBox* labelsgroup = new QGroupBox(this);
     labelsgroup->setLayout(hbLayout);
 
-    //setLayout(hbLayout);
+    /*QHBoxLayout* containerLayout = new QHBoxLayout;
+    containerLayout->addWidget(labelsgroup);
+    setLayout(containerLayout);
+    */
 
 }
 
 void LineStat::createLabels(){
     cognome = new QLabel(tess->getCognome().toUpper(), this);
-    cognome->setMinimumSize(100, 15);
+    cognome->setMinimumSize(100, 10);
     cognome->setAlignment(Qt::AlignVCenter);
     nome = new QLabel(tess->getNome(), this);
-    nome->setMinimumSize(100, 15);
+    nome->setMinimumSize(100, 10);
     nome->setAlignment(Qt::AlignVCenter);
     /*QFont font;
     font = cognome->font();
@@ -43,38 +46,38 @@ void LineStat::createLabels(){
     numero = new QLabel(this);
     //numero->setFont(font);
 
-    numero->setMinimumSize(30, 15);
+    numero->setMinimumSize(30, 10);
     numero->setMaximumSize(50, 50);
     numero->setObjectName("numero");
     numero->setAlignment(Qt::AlignCenter);
 
     ammo = new QLabel(this);
     //ammo->setFont(font);
-    ammo->setMinimumSize(30, 15);
+    ammo->setMinimumSize(30, 10);
     ammo->setAlignment(Qt::AlignCenter);
     dueMin = new QLabel(this);
     //dueMin->setFont(font);
-    dueMin->setMinimumSize(80, 15);
+    dueMin->setMinimumSize(80, 10);
     dueMin->setAlignment(Qt::AlignCenter);
     escl = new QLabel(this);
     //escl->setFont(font);
-    escl->setMinimumSize(30, 15);
+    escl->setMinimumSize(30, 10);
     escl->setAlignment(Qt::AlignCenter);
     reti = new QLabel(this);
     //reti->setFont(font);
-    reti->setMinimumSize(100, 15);
+    reti->setMinimumSize(100, 10);
     reti->setAlignment(Qt::AlignCenter);
     parate = new QLabel(this);
     //parate->setFont(font);
-    parate->setMinimumSize(100, 15);
+    parate->setMinimumSize(100, 10);
     parate->setAlignment(Qt::AlignCenter);
     perc = new QLabel(this);
     //perc->setFont(font);
-    perc->setMinimumSize(100, 15);
+    perc->setMinimumSize(100, 10);
     perc->setAlignment(Qt::AlignCenter);
     paratePerc = new QLabel(this);
     //paratePerc->setFont(font);
-    paratePerc->setMinimumSize(100, 15);
+    paratePerc->setMinimumSize(100, 10);
     paratePerc->setAlignment(Qt::AlignCenter);
 
     const Giocatore* g = dynamic_cast<const Giocatore*>(tess);

@@ -34,6 +34,9 @@ Tabs::Tabs(Squadra *s1, Squadra *s2, Arbitro *arb1, Arbitro *arb2, Arbitro::Cate
 }
 
 void Tabs::exportPng(){
+    statTeam1->resize(720, 576);
+    statTeam2->resize(720, 576);
+
     if(statTeam1 && statTeam2){
         QPixmap pixmap1(statTeam1->rect().size());
         statTeam1->render(&pixmap1, QPoint(), QRegion(statTeam1->rect()));
@@ -56,7 +59,7 @@ void Tabs::exportPng(){
         QPixmap pixmap2(statTeam2->rect().size());
         statTeam2->render(&pixmap2, QPoint(), QRegion(statTeam2->rect()));
         if(!pngOpen2.isEmpty()){
-            QFile file(pngOpen1);
+            QFile file(pngOpen2);
             pixmap2.save(&file, "PNG");
             file.close();
         }
