@@ -28,10 +28,10 @@ LineStat::LineStat(Tesserato*t, QWidget *parent) :
 }
 
 void LineStat::createLabels(){
-    cognome = new Label(tess->getCognome().toUpper(), this);
+    cognome = new QLabel(tess->getCognome().toUpper(), this);
     cognome->setMinimumSize(100, 15);
     cognome->setAlignment(Qt::AlignVCenter);
-    nome = new Label(tess->getNome(), this);
+    nome = new QLabel(tess->getNome(), this);
     nome->setMinimumSize(100, 15);
     nome->setAlignment(Qt::AlignVCenter);
     /*QFont font;
@@ -39,42 +39,40 @@ void LineStat::createLabels(){
     font.setPointSize(12);
     nome->setFont(font);
     cognome->setFont(font);
-    numero = new Label(this);
-    numero->setFont(font);
     */
+    numero = new QLabel(this);
+    //numero->setFont(font);
+
     numero->setMinimumSize(30, 15);
     numero->setMaximumSize(50, 50);
-    numero->setStyleSheet("color: white;"
-                          "font-weight: bold;"
-                          "background-color: rgba(0, 0, 128, 70%);"
-                          "border 1px solid white;");
+    numero->setObjectName("numero");
     numero->setAlignment(Qt::AlignCenter);
 
-    ammo = new Label(this);
+    ammo = new QLabel(this);
     //ammo->setFont(font);
     ammo->setMinimumSize(30, 15);
     ammo->setAlignment(Qt::AlignCenter);
-    dueMin = new Label(this);
+    dueMin = new QLabel(this);
     //dueMin->setFont(font);
     dueMin->setMinimumSize(80, 15);
     dueMin->setAlignment(Qt::AlignCenter);
-    escl = new Label(this);
+    escl = new QLabel(this);
     //escl->setFont(font);
     escl->setMinimumSize(30, 15);
     escl->setAlignment(Qt::AlignCenter);
-    reti = new Label(this);
+    reti = new QLabel(this);
     //reti->setFont(font);
     reti->setMinimumSize(100, 15);
     reti->setAlignment(Qt::AlignCenter);
-    parate = new Label(this);
+    parate = new QLabel(this);
     //parate->setFont(font);
     parate->setMinimumSize(100, 15);
     parate->setAlignment(Qt::AlignCenter);
-    perc = new Label(this);
+    perc = new QLabel(this);
     //perc->setFont(font);
     perc->setMinimumSize(100, 15);
     perc->setAlignment(Qt::AlignCenter);
-    paratePerc = new Label(this);
+    paratePerc = new QLabel(this);
     //paratePerc->setFont(font);
     paratePerc->setMinimumSize(100, 15);
     paratePerc->setAlignment(Qt::AlignCenter);

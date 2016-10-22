@@ -6,7 +6,7 @@
 #include "giocatore.h"
 #include "allenatore.h"
 #include "portiere.h"
-#include "label.h"
+#include <QLabel>
 #include <QHBoxLayout>
 
 class LineStat : public QWidget
@@ -17,16 +17,16 @@ private:
 
     void createLabels();
 
-    Label* nome;
-    Label* cognome;
-    Label* numero;
-    Label* ammo;
-    Label* dueMin;
-    Label* escl;
-    Label* reti;
-    Label* parate;
-    Label* perc;
-    Label* paratePerc;
+    QLabel* nome;
+    QLabel* cognome;
+    QLabel* numero;
+    QLabel* ammo;
+    QLabel* dueMin;
+    QLabel* escl;
+    QLabel* reti;
+    QLabel* parate;
+    QLabel* perc;
+    QLabel* paratePerc;
 public:
     explicit LineStat(Tesserato* t, QWidget *parent = 0);
 
