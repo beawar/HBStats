@@ -33,4 +33,5 @@ void Label::resizeEvent(QResizeEvent* event){
         font.setPixelSize(fontSize);
         this->setFont(font);
     }
+
 }

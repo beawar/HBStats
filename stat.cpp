@@ -30,6 +30,7 @@ Stat::Stat(Squadra *s, QWidget *parent) :
 
     //Creating and setting a groupbox that contain all the header labels
     QGroupBox* headerGroup = new QGroupBox(this);
+    headerGroup->setObjectName("HeaderGroup");
     headerGroup->setLayout(headerLayout);
 
     QHBoxLayout* squadraLayout = new QHBoxLayout;
@@ -38,6 +39,7 @@ Stat::Stat(Squadra *s, QWidget *parent) :
 
     //create and set a groupbox for team name and global stats
     QGroupBox* squadraGroup = new QGroupBox(this);
+    squadraGroup->setObjectName("SquadraGroup");
     squadraGroup->setLayout(squadraLayout);
 
     QVBoxLayout* layout = new QVBoxLayout;
