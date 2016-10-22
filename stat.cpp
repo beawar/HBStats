@@ -2,6 +2,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
+#include <QStyleOption>
+#include <QPainter>
 
 Stat::Stat(Squadra *s, QWidget *parent) :
     QWidget(parent), squadra(s)
@@ -122,6 +124,13 @@ void Stat::createHeader(){
     headerLayout->addWidget(parateperc);
 
 
+}
+
+void Stat::paintEvent(QPaintEvent *e){
+     QStyleOption opt;
+     opt.init(this);
+     QPainter p(this);
+     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 void Stat::updateDati(){

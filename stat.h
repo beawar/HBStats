@@ -34,6 +34,9 @@ private:
 
     LineStat* persona[maxPersone];
 
+protected:
+    void paintEvent(QPaintEvent* e);
+
 public:
     explicit Stat(Squadra* s, QWidget *parent = 0);
 

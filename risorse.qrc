@@ -19,6 +19,11 @@
         <file>images/portiere_perc.png</file>
         <file>images/close_red.png</file>
         <file>images/Sfondo_logo.png</file>
+        <file>images/bullet-yellow.png</file>
+        <file>images/circle_red.png</file>
+        <file>images/circle_blue.png</file>
+        <file>images/bullet-black.png</file>
+        <file>images/bullet-red.png</file>
     </qresource>
     <qresource prefix="/">
         <file>qstyle.qss</file>
