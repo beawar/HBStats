@@ -37,7 +37,8 @@ SOURCES += main.cpp \
     partita.cpp \
     linepartita.cpp \
     pushbutton.cpp \
-    editor.cpp
+    editor.cpp \
+    label.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -65,7 +66,8 @@ HEADERS  += \
     partita.h \
     linepartita.h \
     pushbutton.h \
-    editor.h
+    editor.h \
+    label.h
 
 FORMS    +=
 

@@ -1,6 +1,7 @@
 #include "stat.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QGroupBox>
 
 Stat::Stat(Squadra *s, QWidget *parent) :
     QWidget(parent), squadra(s)
@@ -25,12 +26,21 @@ Stat::Stat(Squadra *s, QWidget *parent) :
     percSquadra->setFont(font2);
     percSquadra->setAlignment(Qt::AlignLeft);
 
+    //Creating and setting a groupbox that contain all the header labels
+    QGroupBox* headerGroup = new QGroupBox(this);
+    headerGroup->setLayout(headerLayout);
+
     QHBoxLayout* squadraLayout = new QHBoxLayout;
     squadraLayout->addWidget(squadraLabel);
     squadraLayout->addWidget(percSquadra);
+
+    //create and set a groupbox for team name and global stats
+    QGroupBox* squadraGroup = new QGroupBox(this);
+    squadraGroup->setLayout(squadraLayout);
+
     QVBoxLayout* layout = new QVBoxLayout;
-    layout->addLayout(squadraLayout);
-    layout->addLayout(headerLayout);
+    layout->addWidget(squadraGroup);
+    layout->addWidget(headerGroup);
 
     int j = 0;
     for(int i=0; i<squadra->size() && j<maxPersone; ++i){
@@ -42,8 +52,6 @@ Stat::Stat(Squadra *s, QWidget *parent) :
     }
     persona[j-1]->setObjectName("LastPerson");
     setLayout(layout);
-
-
 }
 
 void Stat::createHeader(){
@@ -112,6 +120,8 @@ void Stat::createHeader(){
     headerLayout->addWidget(perc);
     headerLayout->addWidget(parate);
     headerLayout->addWidget(parateperc);
+
+
 }
 
 void Stat::updateDati(){

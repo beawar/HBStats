@@ -18,6 +18,7 @@
         <file>images/footbal_perc.png</file>
         <file>images/portiere_perc.png</file>
         <file>images/close_red.png</file>
+        <file>images/Sfondo_logo.png</file>
     </qresource>
     <qresource prefix="/">
         <file>qstyle.qss</file>

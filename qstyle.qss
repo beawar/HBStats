@@ -1,0 +1,88 @@
+MainWindow{
+    background-image: url(:/images/images/Sfondo_logo.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-origin: content;
+}
+
+QToolBar {
+     background: white;
+     /*spacing: 3px; /* spacing between items in the tool bar */
+ }
+
+
+Stat QLabel{
+    color: black;
+}
+
+LineStat QGroupBox {
+      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+      border: 2px solid gray;
+      border-radius: 5px;
+      /* margin-top: 1ex;  leave space at the top for the title */
+}
+
+QListView {
+      show-decoration-selected: 1; /* make the selection span the entire width of the view */
+}
+
+QListView::item:alternate {
+    background: lightblue;
+}
+
+QListView::item:selected {
+    border: 1px solid skyblue;
+}
+
+QListView::item:selected:!active {
+  background: dodgerblue;
+}
+
+QListView::item:selected:active {
+  background: skyblue;
+}
+
+QMenu {
+ background-color: white;
+ margin: 2px; /* some spacing around the menu */
+}
+
+QMenu::item {
+ padding: 2px 25px 2px 20px;
+ border: 1px solid transparent; /* reserve space for selection border */
+}
+
+QMenu::item:selected {
+ border-color: darkblue;
+ background: rgba(100, 100, 100, 150);
+}
+
+QMenu::separator {
+ height: 2px;
+ background: darkgrey;
+ margin-left: 10px;
+ margin-right: 5px;
+}
+
+/* Customizing QMenuBar */
+
+QMenuBar {
+ background-color: white;
+}
+
+ }
+
+QMenuBar::item {
+    spacing: 3px; /* spacing between menu bar items */
+    padding: 1px 4px;
+    background: transparent;
+    border-radius: 4px;
+}
+
+QMenuBar::item:selected { /* when selected using mouse or keyboard */
+    background: lightgrey;
+}
+
+QMenuBar::item:pressed {
+    background: lightslategray;

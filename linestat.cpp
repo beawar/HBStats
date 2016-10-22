@@ -19,7 +19,11 @@ LineStat::LineStat(Tesserato*t, QWidget *parent) :
     hbLayout->addWidget(parate);
     hbLayout->addWidget(paratePerc);
 
-    setLayout(hbLayout);
+    //create and set a group of labels
+    QGroupBox* labelsgroup = new QGroupBox(this);
+    labelsgroup->setLayout(hbLayout);
+
+    //setLayout(hbLayout);
 
 }
 
