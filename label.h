@@ -6,9 +6,12 @@ class Label : public QLabel
 {
     Q_OBJECT
 
-public:
-    Label();
+protected:
     void resizeEvent(QResizeEvent* event);
+public:
+    Label(QWidget *parent = Q_NULLPTR, Qt::WindowFlags f = Qt::WindowFlags());
+    Label(const QString &text, QWidget *parent = Q_NULLPTR, Qt::WindowFlags f = Qt::WindowFlags());
+
 };
 
 #endif // LABEL_H
