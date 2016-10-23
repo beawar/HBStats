@@ -35,6 +35,7 @@ public:
 
     Squadra* getHomeTeam() const;
     Squadra* getGuestTeam() const;
+    int getNumberOf(PartitaPage::Team team, PartitaPage::Type type);
     Arbitro* getArbitro1() const;
     Arbitro* getArbitro2() const;
     Arbitro::Categoria getCategoria() const;

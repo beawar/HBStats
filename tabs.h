@@ -24,7 +24,7 @@ private:
     Partita* partita;
 
 public:
-    explicit Tabs(Squadra *s1, Squadra *s2, Arbitro *arb1, Arbitro *arb2, Arbitro::Categoria cat, QWidget *parent = 0);
+    explicit Tabs(Squadra *s1, Squadra *s2, int numPlS1, int numAllS1, int numPlS2, int numAllS2, Arbitro *arb1, Arbitro *arb2, Arbitro::Categoria cat, QWidget *parent = 0);
 
 signals:
     void resetted(bool);

@@ -61,10 +61,14 @@ private slots:
     void sort();
 
 public:
+    enum Team {home, guest};
+    enum Type {gioc, all};
     explicit PartitaPage(SquadreModel* sm, ArbitriModel* am, QWidget *parent = 0);
 
     int nextId() const;
     bool validatePage() const;
+
+    int getNumberOf(Team team, Type type);
 
     Arbitro::Categoria getCategoria() const;
 signals:

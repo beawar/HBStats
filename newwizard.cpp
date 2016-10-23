@@ -38,6 +38,10 @@ Squadra* NewWizard::getGuestTeam() const{
     return squadre->at(field("partita.guestTeam").toInt());
 }
 
+int PartitaPage::getNumberOf(PartitaPage::Team team, PartitaPage::Type type){
+    return PartitaPage::getNumberOf(home, gioc);
+}
+
 Arbitro* NewWizard::getArbitro1() const{
     return arbitri->at(field("partita.arbitro1").toInt());
 }

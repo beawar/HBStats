@@ -6,15 +6,18 @@
 #include <QVBoxLayout>
 #include <QGroupBox>
 #include <QButtonGroup>
+#include <vector>
 #include "squadra.h"
 #include "arbitro.h"
 #include "linepartita.h"
+using std::vector;
 
 class Partita : public QWidget
 {
     Q_OBJECT
 private:
     enum {maxGiocatori = 14, maxAllenatori = 2};
+    void resizeArrays();
     void createHomeLayout();
     void createGuestLayout();
 
@@ -33,6 +36,11 @@ private:
     int currentPortiereHome;
     int currentPortiereGuest;
 
+    int numPlS1;
+    int numAllS1;
+    int numPlS2;
+    int numAllS2;
+
     LinePartita* homeLines[maxGiocatori+maxAllenatori];
     QButtonGroup* homePortiere;
 
@@ -44,8 +52,9 @@ private:
 
     QLabel* punteggio;
 
+
 public:
-    explicit Partita(Squadra* home, Squadra* guest, Arbitro* a1, Arbitro* a2, Arbitro::Categoria cat, QWidget *parent = 0);
+    explicit Partita(Squadra* home, Squadra* guest, int numPlS1, int numAllS1, int numPlS2, int numAllS2, Arbitro* a1, Arbitro* a2, Arbitro::Categoria cat, QWidget *parent = 0);
 
 signals:
     void dataChanged();

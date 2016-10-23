@@ -50,9 +50,11 @@ void PartitaPage::createView(){
     squadra2 = checkArray[squadra2ComboBox->currentIndex()];
 
     squadra1List = new QListView(this);
+    squadra1List->setAlternatingRowColors(true);
     squadra1List->setModel(squadra1);
 
     squadra2List = new QListView(this);
+    squadra2List->setAlternatingRowColors(true);
     squadra2List->setModel(squadra2);
 
     categoriaLabel = new QLabel(tr("Categoria: "), this);
@@ -124,6 +126,25 @@ Squadra* PartitaPage::homeTeam() const{
 
 Squadra* PartitaPage::guestTeam() const{
     return squadre->at(squadra2ComboBox->currentIndex());
+}
+
+int PartitaPage::getNumberOf(Team team, Type type){
+    if(type == gioc){
+        if(team == home){
+            return squadra1->checkedGiocatori();
+        }
+        else{
+            return squadra2->checkedGiocatori();
+        }
+    }
+    else{
+        if(team == home){
+            return squadra1->checkedAllenatori();
+        }
+        else{
+            return squadra2->checkedAllenatori();
+        }
+    }
 }
 
 int PartitaPage::nextId() const{

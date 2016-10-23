@@ -3,11 +3,17 @@
 #include <QRadioButton>
 #include <QMessageBox>
 
-Partita::Partita(Squadra *home, Squadra *guest, Arbitro *a1, Arbitro *a2, Arbitro::Categoria cat, QWidget *parent) :
+Partita::Partita(Squadra *home, Squadra *guest, int numPlS1, int numAllS1, int numPlS2, int numAllS2, Arbitro *a1, Arbitro *a2, Arbitro::Categoria cat, QWidget *parent) :
     QWidget(parent), homeTeam(home), guestTeam(guest), arbitro1(a1), arbitro2(a2), categoria(cat),
     goalHome(0), goalGuest(0), currentPortiereHome(0), currentPortiereGuest(0)
 {
     mainLayout = new QVBoxLayout;
+    this->numPlS1 = numPlS1;
+    this->numAllS1 = numAllS1;
+    this->numPlS2 = numPlS2;
+    this->numAllS2 = numAllS2;
+
+    resizeArrays();
 
     QLabel* homeName = new QLabel(homeTeam->getNome(), this);
     homeName->setAlignment(Qt::AlignHCenter);
@@ -75,6 +81,13 @@ Partita::Partita(Squadra *home, Squadra *guest, Arbitro *a1, Arbitro *a2, Arbitr
 //    mainLayout->addLayout(arbitriLayout);
 
     setLayout(mainLayout);
+}
+
+void Partita::resizeArrays(){
+    if(numPlS1 != maxGiocatori || numAllS1 != maxAllenatori){
+        delete homeLines;
+        homeLines = new LinePartita[]
+    }
 }
 
 void Partita::createHomeLayout(){

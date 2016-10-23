@@ -270,7 +270,7 @@ void MainWindow::showPartita(){
     Arbitro* a2 = 0; /*newWizard->getArbitro2();*/
     Arbitro::Categoria cat= newWizard->getCategoria();
 
-    tabs = new Tabs(home, guest, a1, a2, cat, this);
+    tabs = new Tabs(home, guest, numPlS1, numAllS1, numPlS2, numAllS2, a1, a2, cat, this);
 
     classificaAct->setEnabled(false);
     exportAct->setEnabled(true);

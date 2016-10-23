@@ -59,6 +59,7 @@ void Editor::createMainEditor(){
     connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
 
     listView = new QListView(this);
+    listView->setAlternatingRowColors(true);
     connect(listView, SIGNAL(clicked(QModelIndex)),this, SLOT(itemSelected(QModelIndex)));
 
     QHBoxLayout* radioLayout = new QHBoxLayout;
