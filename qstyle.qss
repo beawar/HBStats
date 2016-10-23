@@ -18,16 +18,16 @@ Stat{
     background-origin: content;
 }
 
-QGroupBox#HeaderGroup{
+#HeaderGroup{
     background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
                   stop:0 rgba( 211, 211, 211,70%), stop: 0.75 rgba(255,255,255,70%));
     border: none;
-    /*border-radius: 0.5em 2em;*/
+    border-radius: 10px;
 }
 
 LineStat QLabel{
     color: white;
-    font-size: 12px;
+    /*font-size: 12px;*/
     font-weight: bold;
 }
 
@@ -36,8 +36,11 @@ LineStat QGroupBox {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
                                     stop:0 rgba( 0, 0, 139,70%), stop: 0.75 rgba(255,255,255,70%));
     border: 1px solid black;
-    /*border-radius: 0.5em 2em;*/
-    border-radius: 7px;
+    /*border-radius: 7px;  */
+    border-top-left-radius: 7px 10px;
+    border-top-right-radius: 4px 4px;
+    border-bottom-left-radius: 4px 4px;
+    border-bottom-right-radius: 7px 10px;
     /* margin-top: 1ex;  leave space at the top for the title */
 }
 
@@ -49,10 +52,6 @@ Stat #numero{
     border: 1px solid white;
 }
 
-QListView {
-    show-decoration-selected: 1; /* make the selection span the entire width of the view */
-}
-
 QListView::item:alternate {
     background: lightblue;
 }
@@ -62,7 +61,7 @@ QListView::item:selected {
 }
 
 QListView::item:selected:!active {
-    background: dodgerblue;
+    background: lightgrey;
 }
 
 QListView::item:selected:active {
