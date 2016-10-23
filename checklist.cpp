@@ -8,7 +8,7 @@ CheckList::CheckList(Squadra *s, bool checkable, QObject *parent) :
     giocatori = 0;
     allenatori = 0;
     if(squadra){
-        for(int i=0; i<squadra->size(); ++i){
+        for(unsigned int i=0; i<squadra->size(); ++i){
             strList.push_back(squadra->at(i)->getInfo());
             if(squadra->at(i)->isChecked()){
                 if(dynamic_cast<const Giocatore*>(squadra->at(i))){
@@ -53,23 +53,24 @@ bool CheckList::setData(const QModelIndex &index, const QVariant &value, int rol
         return false;
     }
     else if(itemsAreCheckable() && role == Qt::CheckStateRole){
-        if(value == Qt::Checked){
-            squadra->at(index.row())->setChecked(true);
-            if(dynamic_cast<const Giocatore*>(squadra->at(index.row()))){
+        Tesserato* tesserato = squadra->at(index.row());
+        if(value == Qt::Checked && !tesserato->isChecked()){
+            tesserato->setChecked(true);
+            if(dynamic_cast<const Giocatore*>(tesserato)){
                 giocatori++;
             }
-            else if(dynamic_cast<const Allenatore*>(squadra->at(index.row()))){
+            else if(dynamic_cast<const Allenatore*>(tesserato)){
                 allenatori++;
             }
             emit dataChanged(index, index);
             return true;
         }
-        else if(value == Qt::Unchecked){
-            squadra->at(index.row())->setChecked(false);
-            if(dynamic_cast<const Giocatore*>(squadra->at(index.row()))){
+        else if(value == Qt::Unchecked && tesserato->isChecked()){
+            tesserato->setChecked(false);
+            if(dynamic_cast<const Giocatore*>(tesserato)){
                 giocatori--;
             }
-            else if(dynamic_cast<const Allenatore*>(squadra->at(index.row()))){
+            else if(dynamic_cast<const Allenatore*>(tesserato)){
                 allenatori--;
             }
             emit dataChanged(index, index);
@@ -83,7 +84,7 @@ bool CheckList::setData(const QModelIndex &index, const QVariant &value, int rol
 void CheckList::updateList(){
     if(squadra){
         strList.clear();
-        for(int i=0; i<squadra->size(); ++i){
+        for(unsigned int i=0; i<squadra->size(); ++i){
             strList.push_back(squadra->at(i)->getInfo());
         }
         setStringList(strList);

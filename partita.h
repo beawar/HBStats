@@ -17,7 +17,6 @@ class Partita : public QWidget
     Q_OBJECT
 private:
     enum {maxGiocatori = 14, maxAllenatori = 2};
-    void resizeArrays();
     void createHomeLayout();
     void createGuestLayout();
 
@@ -41,10 +40,10 @@ private:
     int numPlS2;
     int numAllS2;
 
-    LinePartita* homeLines[maxGiocatori+maxAllenatori];
+    vector<LinePartita*> homeLines;
     QButtonGroup* homePortiere;
 
-    LinePartita* guestLines[maxGiocatori+maxAllenatori];
+    vector<LinePartita*> guestLines;
     QButtonGroup* guestPortiere;
 
     QGroupBox* homeGroup;

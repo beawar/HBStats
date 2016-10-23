@@ -80,7 +80,7 @@ public:
 template <class T>
 typename Vettore<T>::pointer Vettore<T>::copia(const Vettore<T>&v){
     T* aux = new T[v.dim];
-    for(int i=0; i<v.size(); ++i){
+    for(unsigned int i=0; i<v.size(); ++i){
         aux[i] = v.array[i];
     }
     return aux;
@@ -89,7 +89,7 @@ typename Vettore<T>::pointer Vettore<T>::copia(const Vettore<T>&v){
 template <class T>
 typename Vettore<T>::pointer Vettore<T>::ridimensiona(const Vettore<T>& v, int d){
     T* aux = new T[d];
-    for(int i=0; i<(v.size()); ++i){
+    for(unsigned int i=0; i<(v.size()); ++i){
         aux[i] = v.array[i];
     }
     delete [] v.array;
@@ -105,7 +105,7 @@ bool Vettore<T>::confronta(const Vettore<T>& a, const Vettore<T>& b){
         return false;
     }
     else{
-        for(int i=0; i<a.size(); ++i){
+        for(unsigned int i=0; i<a.size(); ++i){
             if(a[i] != b[i]){
                 return false;
             }
@@ -157,7 +157,7 @@ Vettore<T>& Vettore<T>::operator =(const Vettore<T>& v){
 
 template <class T>
 Vettore<T>& Vettore<T>::operator +(const Vettore<T>& v){
-   for(int i = 0; i<v.size(); ++i){
+   for(unsigned int i = 0; i<v.size(); ++i){
        push_back(v[i]);
    }
    return *this;

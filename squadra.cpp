@@ -43,25 +43,25 @@ void Squadra::setSocieta(const QString &s){
 }
 
 void Squadra::addVittoria(int x, unsigned int fatti, unsigned int subiti){
-    vittorie+x <0 ? vittorie=0 : vittorie+=x;
+    vittorie+x >0 ? vittorie+=x : vittorie=0;
     goalFatti += fatti;
     goalSubiti += subiti;
 }
 
 void Squadra::addPareggio(int x, unsigned int goal){
-    pareggi+x <0 ? pareggi=0 : pareggi+=x;
+    pareggi+x >0 ? pareggi+=x : pareggi=0;
     goalFatti += goal;
     goalSubiti += goal;
 }
 
 void Squadra::addSconfitta(int x, unsigned int fatti, unsigned int subiti){
-    sconfitte+x <0 ? sconfitte=0 : sconfitte+=x;
+    sconfitte+x >0 ? sconfitte+=x : sconfitte=0;
     goalFatti += fatti;
     goalSubiti += subiti;
 }
 
 void Squadra::addPenalita(int x){
-     penalita+x <0 ? penalita=0 : penalita+=x;
+     penalita+x >0 ? penalita+=x : penalita=0;
 }
 
 int Squadra::getPenalita() const{
@@ -262,7 +262,7 @@ bool Squadra::operator ==(const Squadra& s) const{
         return false;
     }
     else{
-        for(int i=0; i<tesserati.size(); ++i){
+        for(unsigned int i=0; i<tesserati.size(); ++i){
             if(*(tesserati[i]) != s[i]){
                 return false;
             }
@@ -274,10 +274,10 @@ bool Squadra::operator ==(const Squadra& s) const{
 void Squadra::sortByName(){
     Vettore<Tesserato*> giocatori;
     Vettore<Tesserato*> allenatori;
-    for(int i=0; i<tesserati.size(); ++i){
+    for(unsigned int i=0; i<tesserati.size(); ++i){
         bool inserito = false;
         if(dynamic_cast<Giocatore*>(tesserati[i])){
-            for(int j=0; j<giocatori.size() && !inserito; ++j){
+            for(unsigned int j=0; j<giocatori.size() && !inserito; ++j){
                 if(*tesserati[i] < *giocatori[j]){
                     giocatori.insert(j, tesserati[i]);
                     inserito = true;
@@ -288,7 +288,7 @@ void Squadra::sortByName(){
             }
         }
         else{
-            for(int j=0; j<allenatori.size() && !inserito; ++j){
+            for(unsigned int j=0; j<allenatori.size() && !inserito; ++j){
                 if(*tesserati[i] < *allenatori[j]){
                     allenatori.insert(j, tesserati[i]);
                     inserito = true;
@@ -305,11 +305,11 @@ void Squadra::sortByName(){
 void Squadra::sortByNumber(){
     Vettore<Tesserato*> giocatori;
     Vettore<Tesserato*> allenatori;
-    for(int i=0; i<tesserati.size(); ++i){
+    for(unsigned int i=0; i<tesserati.size(); ++i){
         bool inserito = false;
         Giocatore* gioc = dynamic_cast<Giocatore*>(tesserati[i]);
         if(gioc){
-            for(int j=0; j<giocatori.size() && !inserito; ++j){
+            for(unsigned int j=0; j<giocatori.size() && !inserito; ++j){
                 Giocatore* g2 = dynamic_cast<Giocatore*>(giocatori[j]);
                 if(gioc->getNumero() < g2->getNumero() || (gioc->getNumero() == g2->getNumero() && *gioc < *g2)){
                     giocatori.insert(j, gioc);
@@ -321,7 +321,7 @@ void Squadra::sortByNumber(){
             }
         }
         else{
-            for(int j=0; j<allenatori.size() && !inserito; ++j){
+            for(unsigned int j=0; j<allenatori.size() && !inserito; ++j){
                 if(*tesserati[i] < *allenatori[j]){
                     allenatori.insert(j, tesserati[i]);
                     inserito = true;

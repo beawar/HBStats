@@ -82,7 +82,7 @@ void Editor::createTesseratoEditor(){
     squadreComboBox->setModel(squadre);
     connect(squadreComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateList(int)));
 
-    for(int i=0; i<squadre->size(); ++i){
+    for(unsigned int i=0; i<squadre->size(); ++i){
         checkArray.push_back(new CheckList(squadre->at(i), false, this));
     }
     tesserati = checkArray[squadreComboBox->currentIndex()];

@@ -241,7 +241,7 @@ void MainWindow::edit(){
     editor->setAttribute(Qt::WA_DeleteOnClose);
     editor->setModal(true);
 
-    for(int i=0; i<squadre->size(); ++i){
+    for(unsigned int i=0; i<squadre->size(); ++i){
         squadre->at(i)->sortByName();
     }
 
@@ -269,6 +269,10 @@ void MainWindow::showPartita(){
     Arbitro* a1 = 0; /*newWizard->getArbitro1();*/
     Arbitro* a2 = 0; /*newWizard->getArbitro2();*/
     Arbitro::Categoria cat= newWizard->getCategoria();
+    int numPlS1 = newWizard->getNumberOf(PartitaPage::home, PartitaPage::gioc);
+    int numAllS1 = newWizard->getNumberOf(PartitaPage::home, PartitaPage::all);
+    int numPlS2 = newWizard->getNumberOf(PartitaPage::guest, PartitaPage::gioc);
+    int numAllS2 = newWizard->getNumberOf(PartitaPage::guest, PartitaPage::all);
 
     tabs = new Tabs(home, guest, numPlS1, numAllS1, numPlS2, numAllS2, a1, a2, cat, this);
 
@@ -311,7 +315,7 @@ void MainWindow::creaClassifica(){
 
     QLabel* teamsLabel[squadre->size()][8];
 
-    for(int i=0; i<squadre->size(); ++i){
+    for(unsigned int i=0; i<squadre->size(); ++i){
         teamsLabel[i][0] = new QLabel(QString::number(i+1), classificaWidget);
         teamsLabel[i][1] = new QLabel(squadre->at(i)->getNome(), classificaWidget);
         teamsLabel[i][2] = new QLabel(QString::number(squadre->at(i)->getPunti()), classificaWidget);
@@ -331,7 +335,7 @@ void MainWindow::creaClassifica(){
 
 
     font.setBold(false);
-    for(int i=0; i<squadre->size(); ++i){
+    for(unsigned int i=0; i<squadre->size(); ++i){
         for(int j=0; j<8; ++j){
             teamsLabel[i][j]->setFont(font);
             teamsLabel[i][j]->setAlignment(Qt::AlignHCenter);
