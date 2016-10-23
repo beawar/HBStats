@@ -26,7 +26,7 @@ void XmlHandler::writeFile(QFile& file) throw(Err_Save){
 }
 
 void XmlHandler::writeItem(){
-    for(int i=0; i<squadreModel->size(); ++i){
+    for(unsigned int i=0; i<squadreModel->size(); ++i){
         Squadra* squadra = squadreModel->at(i);
 
         xmlWriter.writeStartElement("Squadra");
@@ -41,7 +41,7 @@ void XmlHandler::writeItem(){
         xmlWriter.writeTextElement("GoalFatti", QString::number(squadra->getGoalFatti()));
         xmlWriter.writeTextElement("GoalSubiti", QString::number(squadra->getGoalSubiti()));
 
-        for(int j=0; j<squadra->size(); ++j){
+        for(unsigned int j=0; j<squadra->size(); ++j){
             const Giocatore* giocatore = dynamic_cast<const Giocatore*>(squadra->at(j));
             if(giocatore){
                 xmlWriter.writeStartElement("Giocatore");
@@ -72,7 +72,7 @@ void XmlHandler::writeItem(){
         xmlWriter.writeEndElement();
     }
 
-    for(int i=0; i<arbitriModel->size(); ++i){
+    for(unsigned int i=0; i<arbitriModel->size(); ++i){
         Arbitro* arbitro = arbitriModel->at(i);
         xmlWriter.writeStartElement("Arbitro");
         xmlWriter.writeTextElement("Nome", arbitro->getNome());

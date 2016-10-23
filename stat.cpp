@@ -46,7 +46,7 @@ Stat::Stat(Squadra *s, QWidget *parent) :
     mainLayout->addWidget(headerGroup);
 
     int j = 0;
-    for(int i=0; i<squadra->size() && j<maxPersone; ++i){
+    for(unsigned int i=0; i<squadra->size() && j<maxPersone; ++i){
         if(squadra->at(i)->isChecked()){
             persona[j] = new LineStat(squadra->at(i), this);
             mainLayout->addWidget(persona[j]);
@@ -128,10 +128,11 @@ void Stat::createHeader(){
 }
 
 void Stat::paintEvent(QPaintEvent *e){
-     QStyleOption opt;
-     opt.init(this);
-     QPainter p(this);
-     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    Q_UNUSED(e);
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 void Stat::updateDati(){
@@ -142,7 +143,7 @@ void Stat::updateDati(){
                          .arg(QString::number(squadra->getParateRigoriPerc(), 'f', 2)));
     int j = 0;
     bool last = false;
-    for(int i=0; i<squadra->size() && !last; ++i){
+    for(unsigned int i=0; i<squadra->size() && !last; ++i){
         if(squadra->at(i)->isChecked()){
             persona[j]->updateDati(squadra->at(i));
             if(persona[j]->objectName() == "LastPerson"){

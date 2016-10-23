@@ -30,6 +30,11 @@ private:
 
     QVBoxLayout* layout;
 
+    QLabel* numbersSquadra1;
+    QLabel* numbersSquadra2;
+    QCheckBox* selectAllSquadra1;
+    QCheckBox* selectAllSquadra2;
+
     QGroupBox* squadra1Group;
     QGroupBox* squadra2Group;
     QGroupBox* arbitriGroup;
@@ -56,8 +61,11 @@ private:
 
 private slots:
     void updateList();
+    void updateCheckBox();
     void checkItemS1(QModelIndex index);
     void checkItemS2(QModelIndex index);
+    void checkAllS1(bool c);
+    void checkAllS2(bool c);
     void sort();
 
 public:
