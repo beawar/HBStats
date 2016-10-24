@@ -23,12 +23,14 @@ Stat{
                   stop:0 rgba( 211, 211, 211,70%), stop: 0.75 rgba(255,255,255,70%));
     border: none;
     border-radius: 10px;
+    spacing: 2;
 }
 
 LineStat QLabel{
     color: white;
-    /*font-size: 12px;*/
+    font-size: 9px;
     font-weight: bold;
+    min-heigth: 10px
 }
 
 
@@ -36,13 +38,12 @@ LineStat QGroupBox {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
                                     stop:0 rgba( 0, 0, 139,70%), stop: 0.75 rgba(255,255,255,70%));
     border: 1px solid black;
-    /*border-radius: 7px;  */
-    border-top-left-radius: 7px 10px;
+    border-top-left-radius: 7px 5px;
     border-top-right-radius: 4px 4px;
     border-bottom-left-radius: 4px 4px;
-    border-bottom-right-radius: 7px 10px;
-    /* margin-top: 1ex;  leave space at the top for the title */
+    border-bottom-right-radius: 7px 5px;
 }
+
 
 
 Stat #numero{
@@ -50,6 +51,7 @@ Stat #numero{
     font-weight: bold;
     background-color: navy;
     border: 1px solid white;
+    border-radius: 3px;
 }
 
 QListView::item:alternate {

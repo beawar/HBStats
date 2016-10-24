@@ -1,6 +1,9 @@
 #include "linestat.h"
 #include <QString>
 #include <QGroupBox>
+#include <QStyleOption>
+#include <QPaintEvent>
+#include <QPainter>
 
 LineStat::LineStat(Tesserato*t, QWidget *parent) :
     QWidget(parent), tess(t)
@@ -23,62 +26,90 @@ LineStat::LineStat(Tesserato*t, QWidget *parent) :
     QGroupBox* labelsgroup = new QGroupBox(this);
     labelsgroup->setLayout(hbLayout);
 
-    /*QHBoxLayout* containerLayout = new QHBoxLayout;
+    containerLayout = new QVBoxLayout;
     containerLayout->addWidget(labelsgroup);
     setLayout(containerLayout);
-    */
+
 
 }
 
 void LineStat::createLabels(){
     cognome = new QLabel(tess->getCognome().toUpper(), this);
+    cognome->setObjectName("cognome");
+    /*
     cognome->setMinimumSize(100, 10);
     cognome->setAlignment(Qt::AlignVCenter);
+    */
+
     nome = new QLabel(tess->getNome(), this);
+    nome->setObjectName("nome");
+    /*
     nome->setMinimumSize(100, 10);
     nome->setAlignment(Qt::AlignVCenter);
+    */
+
     /*QFont font;
     font = cognome->font();
     font.setPointSize(12);
     nome->setFont(font);
     cognome->setFont(font);
     */
-    numero = new QLabel(this);
-    //numero->setFont(font);
 
+    numero = new QLabel(this);
+    /*
+    numero->setFont(font);
     numero->setMinimumSize(30, 10);
     numero->setMaximumSize(50, 50);
     numero->setObjectName("numero");
     numero->setAlignment(Qt::AlignCenter);
+    */
 
     ammo = new QLabel(this);
-    //ammo->setFont(font);
+    /*
+    ammo->setFont(font);
     ammo->setMinimumSize(30, 10);
     ammo->setAlignment(Qt::AlignCenter);
+    */
+
     dueMin = new QLabel(this);
-    //dueMin->setFont(font);
+    /*
+    dueMin->setFont(font);
     dueMin->setMinimumSize(80, 10);
     dueMin->setAlignment(Qt::AlignCenter);
+    */
+
     escl = new QLabel(this);
-    //escl->setFont(font);
+    /*
+    escl->setFont(font);
     escl->setMinimumSize(30, 10);
     escl->setAlignment(Qt::AlignCenter);
+    */
+
     reti = new QLabel(this);
-    //reti->setFont(font);
+    /*
+    reti->setFont(font);
     reti->setMinimumSize(100, 10);
     reti->setAlignment(Qt::AlignCenter);
+    */
+
     parate = new QLabel(this);
-    //parate->setFont(font);
+    /*
+    parate->setFont(font);
     parate->setMinimumSize(100, 10);
     parate->setAlignment(Qt::AlignCenter);
+    */
     perc = new QLabel(this);
-    //perc->setFont(font);
+    /*
+    perc->setFont(font);
     perc->setMinimumSize(100, 10);
     perc->setAlignment(Qt::AlignCenter);
+    */
     paratePerc = new QLabel(this);
-    //paratePerc->setFont(font);
+    /*
+    paratePerc->setFont(font);
     paratePerc->setMinimumSize(100, 10);
     paratePerc->setAlignment(Qt::AlignCenter);
+    */
 
     const Giocatore* g = dynamic_cast<const Giocatore*>(tess);
     if(g){
@@ -89,9 +120,17 @@ void LineStat::createLabels(){
     }
 }
 
+void LineStat::paintEvent(QPaintEvent *e){
+    Q_UNUSED(e);
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+
 void LineStat::updateDati(Tesserato* t){
     if(t->isAmmonito()){
-        ammo->setText("X");
+        ammo->setPixmap(QPixmap(":/images/images/bullet-yellow.png"));
     }
     else{
         ammo->clear();
@@ -99,13 +138,13 @@ void LineStat::updateDati(Tesserato* t){
 
     switch(t->get2Minuti()){
         case 1:
-            dueMin->setText("X");
+            dueMin->setPixmap(QPixmap(":/images/images/bullet-black.png"));
             break;
         case 2:
-            dueMin->setText("XX");
+            dueMin->setPixmap(QPixmap(":/images/images/bullet-black_x2.png"));
             break;
         case 3:
-            dueMin->setText("XXX");
+            dueMin->setPixmap(QPixmap(":/images/images/bullet-black_x3.png"));
             break;
         default:
             dueMin->clear();
@@ -113,7 +152,7 @@ void LineStat::updateDati(Tesserato* t){
     }
 
     if(t->isEscluso()){
-        escl->setText("X");
+        escl->setPixmap(QPixmap(":/images/images/bullet-red.png").scaled(10,10, Qt::KeepAspectRatio));
     }
     else{
         escl->clear();

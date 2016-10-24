@@ -27,6 +27,11 @@ private:
     QLabel* parate;
     QLabel* perc;
     QLabel* paratePerc;
+
+    QVBoxLayout* containerLayout;
+
+protected:
+    void paintEvent(QPaintEvent *event);
 public:
     explicit LineStat(Tesserato* t, QWidget *parent = 0);
 
