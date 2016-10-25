@@ -4,6 +4,8 @@
 #include <QGroupBox>
 #include <QStyleOption>
 #include <QPainter>
+#include <QSizePolicy>
+#include <QSize>
 
 Stat::Stat(Squadra *s, QWidget *parent) :
     QWidget(parent), squadra(s)
@@ -41,6 +43,7 @@ Stat::Stat(Squadra *s, QWidget *parent) :
     QGroupBox* headerGroup = new QGroupBox(this);
     headerGroup->setObjectName("HeaderGroup");
     headerGroup->setLayout(layout);
+    headerGroup->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(0);
@@ -57,6 +60,7 @@ Stat::Stat(Squadra *s, QWidget *parent) :
     }
     persona[j-1]->setObjectName("LastPerson");
     setLayout(mainLayout);
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 }
 
 void Stat::createHeader(){

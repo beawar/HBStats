@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QStackedWidget>
+#include <QFile>
 #include "newwizard.h"
 #include "squadremodel.h"
 #include "arbitrimodel.h"
@@ -26,6 +27,9 @@ private:
     void createMenus();
     void createToolBar();
     bool maybeSave();
+
+    bool loadPreference();
+    void writePreference();
 
     QStackedWidget stackedWidget;
     QWidget* logoWidget;
@@ -59,6 +63,7 @@ private:
     ArbitriModel* arbitri;
 
     QString fileOpen;
+    QFile confFile;
     XmlHandler xml;
 
     bool modificato;
@@ -66,7 +71,7 @@ private:
 
 private slots:
     void newFile();
-    void open();
+    void open(bool showDialog = true);
     void save();
     void saveAs();
     void exportPng();

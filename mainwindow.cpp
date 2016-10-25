@@ -4,10 +4,12 @@
 #include <QString>
 #include <QMessageBox>
 #include <QGridLayout>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent), logoWidget(0), classificaWidget(0), toolBar(0), newWizard(0),
-  tabs(0), editor(0), squadre(new SquadreModel(this)), arbitri(new ArbitriModel(this)), fileOpen(""), xml(squadre, arbitri), modificato(false)
+  tabs(0), editor(0), squadre(new SquadreModel(this)), arbitri(new ArbitriModel(this)),
+  fileOpen(""), confFile("preference.conf"), xml(squadre, arbitri), modificato(false)
 {
     createLogoWidget();
     createActions();
@@ -19,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("HandBall Stats by Beatrice Guerra");
     setMinimumSize(sizeHint());
 
+    if(loadPreference() && !fileOpen.isEmpty()){
+        open(false);
+    }
 }
 
 void MainWindow::createLogoWidget(){
@@ -151,6 +156,32 @@ bool MainWindow::maybeSave(){
     return true;
 }
 
+bool MainWindow::loadPreference(){
+    if (confFile.exists() && confFile.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QTextStream in(&confFile);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            if(line == "Last Session:"){
+                fileOpen = in.readLine();
+                confFile.close();
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void MainWindow::writePreference(){
+    if(!confFile.exists()){
+        confFile.setFileName("preference.conf");
+    }
+    if(confFile.open(QFile::WriteOnly | QFile::Truncate)) {
+          QTextStream out(&confFile);
+          out << "Last Session:\r\n" << fileOpen;
+      }
+    confFile.close();
+}
+
 void MainWindow::newFile(){
     newWizard = new NewWizard(squadre, arbitri, this);
     newWizard->setAttribute(Qt::WA_DeleteOnClose);
@@ -164,8 +195,11 @@ void MainWindow::newFile(){
     }
 }
 
-void MainWindow::open(){
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Scegli un file da aprire"), QDir::currentPath(), "*.hbs");
+void MainWindow::open(bool showDialog){
+    QString fileName(fileOpen);
+    if(showDialog){
+        fileName = QFileDialog::getOpenFileName(this, tr("Scegli un file da aprire"), QDir::currentPath(), "*.hbs");
+    }
     if(!fileName.isNull()){
         if(squadre && !squadre->isEmpty()){
             squadre->clear();
@@ -397,6 +431,7 @@ void MainWindow::wasModified(bool mod){
 void MainWindow::closeEvent(QCloseEvent *event){
     if(maybeSave()){
         save();
+        writePreference();
         event->accept();
     }
     else{
