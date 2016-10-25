@@ -44,6 +44,7 @@ Stat::Stat(Squadra *s, QWidget *parent) :
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(0);
+    mainLayout->setMargin(0);
     mainLayout->addWidget(headerGroup);
 
     int j = 0;
@@ -62,79 +63,34 @@ void Stat::createHeader(){
     headerLayout = new QHBoxLayout;
 
     numero = new QLabel("N°", this);
-    /*
-    numero->setMinimumSize(30, 30);
-    numero->setMaximumWidth(50);
-    numero->setAlignment(Qt::AlignCenter);
-    */
-    /*
-    QFont bold = numero->font();
-    bold.setBold(true);
-    bold.setPointSize(13);
-    numero->setFont(bold);
-    */
+    numero->setObjectName("numero_header");
 
     cognome = new QLabel(tr("Cognome"), this);
-    /*
-    cognome->setMinimumSize(100, 30);
-    cognome->setFont(bold);
-    */
+    cognome->setObjectName("cognome");
 
     nome = new QLabel(tr("Nome"), this);
-    /*
-    nome->setMinimumSize(100, 30);
-    nome->setFont(bold);
-    */
+    nome->setObjectName("nome");
 
     ammo = new QLabel(this);
-    ammo->setPixmap(QPixmap(":/images/images/giallo.png").scaled(30, 30));
-    /*
-    ammo->setMinimumSize(30, 30);
-    */
-    ammo->setAlignment(Qt::AlignHCenter);
-
+    ammo->setPixmap(QPixmap(":/images/images/giallo.png").scaled(20, 20));
 
     dueMin = new QLabel(this);
     dueMin->setPixmap(QPixmap(":/images/images/two_fingers.png").scaled(30, 30));
-    dueMin->setAlignment(Qt::AlignHCenter);
-    /*
-    dueMin->setMinimumSize(80, 30);
-    */
 
     escl = new QLabel(this);
     escl->setPixmap(QPixmap(":/images/images/rosso.png").scaled(30, 30));
-    escl->setAlignment(Qt::AlignHCenter);
-    /*
-    escl->setMinimumSize(30, 30);
-    */
 
     reti = new QLabel(this);
     reti->setPixmap(QPixmap(":/images/images/footbal.png").scaled(30, 30));
-    reti->setAlignment(Qt::AlignHCenter);
-    /*
-    reti->setMinimumSize(100, 30);
-    */
 
     parate = new QLabel(this);
     parate->setPixmap(QPixmap(":/images/images/portiere.png").scaled(30, 30));
-    parate->setAlignment(Qt::AlignHCenter);
-    /*
-    parate->setMinimumSize(100, 30);
-    */
 
     perc = new QLabel(this);
     perc->setPixmap(QPixmap(":/images/images/footbal_perc.png").scaled(30, 30));
-    perc->setAlignment(Qt::AlignHCenter);
-    /*
-    perc->setMinimumSize(100, 30);
-    */
 
     parateperc = new QLabel(this);
     parateperc->setPixmap(QPixmap(":/images/images/portiere_perc.png").scaled(30, 30));
-    parateperc->setAlignment(Qt::AlignHCenter);
-    /*
-    parateperc->setMinimumSize(100, 50);
-    */
 
     headerLayout->addWidget(numero);
     headerLayout->addWidget(cognome);

@@ -56,11 +56,11 @@ void LineStat::createLabels(){
     */
 
     numero = new QLabel(this);
+    numero->setObjectName("numero");
     /*
     numero->setFont(font);
     numero->setMinimumSize(30, 10);
     numero->setMaximumSize(50, 50);
-    numero->setObjectName("numero");
     numero->setAlignment(Qt::AlignCenter);
     */
 
