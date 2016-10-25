@@ -25,7 +25,6 @@ QToolBar {
     border-radius: 10px;
     margin: 2px;
     font-weight: bold;
-    min-height: 60px;
 }
 
 LineStat .QLabel{
@@ -33,7 +32,7 @@ LineStat .QLabel{
     font-size: 9px;
     font-weight: bold;
     min-height: 1em;
-    min-width: 80px
+    min-width: 80px;
     text-align: center center;
 }
 
@@ -58,17 +57,21 @@ LineStat #numero{
     color: white;
     font-weight: bold;
     background-color: navy;
-    border: solid white;
+    border: 1px solid white;
     border-radius: 3px;
-    min-height: 1em;
-    min-width: 1em;
+    min-height: 1.5em;
+    min-width: 1.5em;
+    max-height: 3em;
+    max-width: 3em;
     text-align: center center;
 
 }
 
 .Stat #numero_header{
-    min-height: 1em;
-    min-width: 1em;
+    min-height: 1.5em;
+    min-width: 1.5em;
+    max-height: 3em;
+    max-width: 3em;
     text-align: center center;
 }
 
@@ -111,7 +114,7 @@ QMenu::separator {
     margin-right: 5px;
 }
 
-/* Customizing QMenuBar */
+/* Customize QMenuBar */
 
 QMenuBar {
     font-size: 14px;
