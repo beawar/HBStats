@@ -46,8 +46,8 @@ Stat::Stat(Squadra *s, QWidget *parent) :
     headerGroup->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
-    mainLayout->setSpacing(0);
-    mainLayout->setMargin(0);
+    mainLayout->setSpacing(3);
+    mainLayout->setMargin(5);
     mainLayout->addWidget(headerGroup);
 
     int j = 0;

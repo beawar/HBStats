@@ -22,27 +22,21 @@ LineStat::LineStat(Tesserato*t, QWidget *parent) :
     hbLayout->addWidget(parate);
     hbLayout->addWidget(paratePerc);
 
-    //create and set a group of labels
-    QGroupBox* labelsgroup = new QGroupBox(this);
-    labelsgroup->setLayout(hbLayout);
-
-    containerLayout = new QVBoxLayout;
-    containerLayout->addWidget(labelsgroup);
-    setLayout(containerLayout);
+    setLayout(hbLayout);
 
 
 }
 
 void LineStat::createLabels(){
     cognome = new QLabel(tess->getCognome().toUpper(), this);
-    cognome->setObjectName("cognome");
+    cognome->setObjectName("cognome_line");
     /*
     cognome->setMinimumSize(100, 10);
     cognome->setAlignment(Qt::AlignVCenter);
     */
 
     nome = new QLabel(tess->getNome(), this);
-    nome->setObjectName("nome");
+    nome->setObjectName("nome_line");
     /*
     nome->setMinimumSize(100, 10);
     nome->setAlignment(Qt::AlignVCenter);
