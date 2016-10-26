@@ -25,22 +25,21 @@ QToolBar {
     border-radius: 10px;
     margin: 2px;
     font-weight: bold;
+    max-height: 7em;
+    font-weight: bold;
 }
 
 LineStat .QLabel{
     color: white;
-    font-size: 9px;
+    font-size: 12px;
     font-weight: bold;
     min-height: 1em;
-    min-width: 80px;
+    min-width: 3em;
     text-align: center center;
 }
 
-Stat #cognome, #nome{
-    text-align: left center;
-    min-width: 80px;
-}
 
+/*
 LineStat .QGroupBox {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
                                     stop:0 rgba( 0, 0, 139,70%), stop: 0.75 rgba(255,255,255,70%));
@@ -52,22 +51,40 @@ LineStat .QGroupBox {
     margin: 0px;
     min-height: 1.5em;
 }
+*/
 
-LineStat #numero{
+.LineStat{
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                                    stop:0 rgba( 0, 0, 139,70%), stop: 0.75 rgba(255,255,255,70%));
+    border: 1px solid black;
+    border-top-left-radius: 5px 15px;
+    border-top-right-radius: 4px 4px;
+    border-bottom-left-radius: 4px 4px;
+    border-bottom-right-radius: 5px 15px;
+    margin: 0px;
+    min-height: 1.5em;
+    max-height: 3em;
+}
+
+#cognome, #nome, #cognome_line, #nome_line{
+    text-align: left center;
+    min-width: 6.25em;
+}
+
+#numero{
     color: white;
     font-weight: bold;
     background-color: navy;
     border: 1px solid white;
     border-radius: 3px;
-    min-height: 1.5em;
-    min-width: 1.5em;
-    max-height: 3em;
-    max-width: 3em;
+    min-height: 15px;
+    min-width: 20px;
+    max-height: 50px;
+    max-width: 50px;
     text-align: center center;
-
 }
 
-.Stat #numero_header{
+#numero_header{
     min-height: 1.5em;
     min-width: 1.5em;
     max-height: 3em;
