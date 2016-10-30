@@ -105,12 +105,15 @@ Arbitro& Arbitro::operator =(const Arbitro& a){
 }
 
 void Arbitro::ammonito (const bool& add) throw (Err_Ammonizione) {
+    Q_UNUSED(add);
     throw Err_Ammonizione();
 }
 void Arbitro::add2Minuti (int x) throw (Err_DueMinuti) {
+    Q_UNUSED(x);
     throw Err_DueMinuti();
 }
 void Arbitro::escluso (const bool& add) throw (Err_Esclusione) {
+    Q_UNUSED(add)
     throw Err_Esclusione();
 }
 bool Arbitro::isAmmonito () const {

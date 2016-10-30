@@ -25,6 +25,7 @@ public:
   QString getNome() const;
   QString getCognome() const;
   QDate getData() const;
+  QString getInitial(QString str) const;
   void setNome(const QString& _nome);
   void setCognome(const QString& _cognome);
   void setData(const QDate& nascita);

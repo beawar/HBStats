@@ -66,6 +66,7 @@ Stat::Stat(Squadra *s, QWidget *parent) :
 void Stat::createHeader(){
     headerLayout = new QHBoxLayout;
 
+    /*
     numero = new QLabel("N°", this);
     numero->setObjectName("numero_header");
 
@@ -74,31 +75,50 @@ void Stat::createHeader(){
 
     nome = new QLabel(tr("Nome"), this);
     nome->setObjectName("nome");
+    */
 
     ammo = new QLabel(this);
     ammo->setPixmap(QPixmap(":/images/images/giallo.png").scaled(20, 20));
+    ammo->setObjectName("ammo_h");
+    ammo->setAlignment(Qt::AlignCenter);
 
     dueMin = new QLabel(this);
-    dueMin->setPixmap(QPixmap(":/images/images/two_fingers.png").scaled(30, 30));
+    dueMin->setPixmap(QPixmap(":/images/images/two_fingers.png").scaled(20, 20));
+    dueMin->setObjectName("dueMin_h");
+    dueMin->setAlignment(Qt::AlignCenter);
 
     escl = new QLabel(this);
-    escl->setPixmap(QPixmap(":/images/images/rosso.png").scaled(30, 30));
+    escl->setPixmap(QPixmap(":/images/images/rosso.png").scaled(20, 20));
+    escl->setObjectName("escl_h");
+    escl->setAlignment(Qt::AlignCenter);
 
     reti = new QLabel(this);
-    reti->setPixmap(QPixmap(":/images/images/footbal.png").scaled(30, 30));
+    reti->setPixmap(QPixmap(":/images/images/footbal.png").scaled(20, 20));
+    reti->setObjectName("goal_h1");
+    reti->setAlignment(Qt::AlignCenter);
 
     parate = new QLabel(this);
-    parate->setPixmap(QPixmap(":/images/images/portiere.png").scaled(30, 30));
+    parate->setPixmap(QPixmap(":/images/images/portiere.png").scaled(20, 20));
+    parate->setObjectName("goal_h2");
+    parate->setAlignment(Qt::AlignCenter);
 
     perc = new QLabel(this);
-    perc->setPixmap(QPixmap(":/images/images/footbal_perc.png").scaled(30, 30));
+    perc->setPixmap(QPixmap(":/images/images/footbal_perc.png").scaled(20, 20));
+    perc->setObjectName("goal_h3");
+    perc->setAlignment(Qt::AlignCenter);
 
     parateperc = new QLabel(this);
-    parateperc->setPixmap(QPixmap(":/images/images/portiere_perc.png").scaled(30, 30));
+    parateperc->setPixmap(QPixmap(":/images/images/portiere_perc.png").scaled(20, 20));
+    parateperc->setObjectName("goal_h4");
+    parateperc->setAlignment(Qt::AlignCenter);
 
+    /*
     headerLayout->addWidget(numero);
     headerLayout->addWidget(cognome);
     headerLayout->addWidget(nome);
+    */
+    headerLayout->setSpacing(0);
+    headerLayout->addSpacing(220);
     headerLayout->addWidget(ammo);
     headerLayout->addWidget(dueMin);
     headerLayout->addWidget(escl);

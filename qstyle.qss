@@ -30,28 +30,14 @@ QToolBar {
 }
 
 LineStat .QLabel{
-    color: white;
-    font-size: 12px;
+    color: black;
+    font-size: 10pt;
     font-weight: bold;
     min-height: 1em;
-    min-width: 3em;
-    text-align: center center;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
-
-
-/*
-LineStat .QGroupBox {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
-                                    stop:0 rgba( 0, 0, 139,70%), stop: 0.75 rgba(255,255,255,70%));
-    border: 1px solid black;
-    border-top-left-radius: 5px 15px;
-    border-top-right-radius: 4px 4px;
-    border-bottom-left-radius: 4px 4px;
-    border-bottom-right-radius: 5px 15px;
-    margin: 0px;
-    min-height: 1.5em;
-}
-*/
 
 .LineStat{
     background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
@@ -62,13 +48,23 @@ LineStat .QGroupBox {
     border-bottom-left-radius: 4px 4px;
     border-bottom-right-radius: 5px 15px;
     margin: 0px;
+    padding: 0px;
     min-height: 1.5em;
     max-height: 3em;
 }
 
-#cognome, #nome, #cognome_line, #nome_line{
+#cognome, #cognome_line{
     text-align: left center;
-    min-width: 6.25em;
+    min-width: 120px;
+    max-width: 120px;
+    font-weight: bold;
+}
+
+#nome, #nome_line{
+    text-align: left center;
+    min-width: 30px;
+    max-width: 30px;
+    font-weight: bold;
 }
 
 #numero{
@@ -77,19 +73,42 @@ LineStat .QGroupBox {
     background-color: navy;
     border: 1px solid white;
     border-radius: 3px;
-    min-height: 15px;
+    min-height: 20px;
     min-width: 20px;
-    max-height: 50px;
-    max-width: 50px;
-    text-align: center center;
+    max-width: 20px;
+    text-align: center;
 }
 
 #numero_header{
-    min-height: 1.5em;
-    min-width: 1.5em;
-    max-height: 3em;
-    max-width: 3em;
-    text-align: center center;
+    min-height: 15px;
+    min-width: 20px;
+    max-width: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#goal1, #goal2, #goal_h1, #goal_h2{
+    min-width: 100px;
+    max-width: 100px;
+    text-align: center;
+}
+
+#goal3, #goal4, #goal_h3, #goal_h4{
+    min-width: 135px;
+    max-width: 135px;
+    text-align: center;
+}
+
+#ammo_h, #ammo, #escl_h, #escl{
+    min-width: 20px;
+    max-width: 20px;
+    text-align: center;
+}
+
+#dueMin_h, #dueMin{
+    min-width: 60px;
+    max-width: 60px;
+    text-align: center;
 }
 
 QListView::item:alternate {
