@@ -27,6 +27,7 @@
         <file>images/Sfondo_PAL.png</file>
         <file>images/bullet-black_x2.png</file>
         <file>images/bullet-black_x3.png</file>
+        <file>images/Sfondo_PAL_2.png</file>
     </qresource>
     <qresource prefix="/">
         <file>qstyle.qss</file>
