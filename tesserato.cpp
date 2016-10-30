@@ -20,6 +20,21 @@ QDate Tesserato::getData() const{
   return dataNascita;
 }
 
+QString Tesserato::getInitial(QString str) const{
+    QString init = str.at(0).toUpper() + '.';
+    bool second_name = false;
+    for(int i=1; i<str.count(); ++i){
+        if(second_name){
+            init.append(' ' + str.at(i).toUpper() + '.');
+            second_name = false;
+        }
+        if(str.at(i) == ' '){
+            second_name = true;
+        }
+    }
+    return init;
+}
+
 void Tesserato::setNome(const QString& _nome){
   nome=_nome;
 }
