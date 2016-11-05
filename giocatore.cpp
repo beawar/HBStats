@@ -69,7 +69,7 @@ void Giocatore::addRigore(int x, const bool& segnato){
     if(segnato){
         rigoriSegnati+=x;
     }
-    (rigoriTotali+x)<rigoriTotali ? rigoriTotali=rigoriTotali : rigoriTotali+=x ;
+    (rigoriTotali+x)<rigoriSegnati ? rigoriTotali=rigoriSegnati : rigoriTotali+=x ;
     addTiro(x, segnato);
 }
 
