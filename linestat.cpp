@@ -148,6 +148,10 @@ void LineStat::updateDati(Tesserato* t){
                                                   QString::number(g->getTiriTotali())));
             perc->setText(tr("%1% (-)").arg(QString::number(g->getTiriPerc(), 'f', 2)));
         }
+        else{
+            reti->clear();
+            perc->clear();
+        }
 
         Portiere* p = dynamic_cast<Portiere*>(g);
         if(p){
@@ -163,6 +167,10 @@ void LineStat::updateDati(Tesserato* t){
                 parate->setText(tr("%1/%2 (-)").arg(QString::number(p->getTiriParati()),
                                                         QString::number(p->getTiriRicevuti())));
                 paratePerc->setText(tr("%1% (-)").arg(QString::number(p->getTiriParatiPerc(), 'f', 2)));
+            }
+            else{
+                reti->clear();
+                perc->clear();
             }
         }
     }
