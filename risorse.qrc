@@ -28,7 +28,6 @@
         <file>images/bullet-black_x2.png</file>
         <file>images/bullet-black_x3.png</file>
         <file>images/Sfondo_PAL_2.png</file>
-        <file>images/HBStats_Icon_Sfondo.ico</file>
     </qresource>
     <qresource prefix="/">
         <file>qstyle.qss</file>

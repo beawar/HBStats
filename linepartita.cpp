@@ -215,8 +215,8 @@ void LinePartita::leftclickRigore(){
 void LinePartita::leftdoubleclickRigore(){
     Giocatore* g = dynamic_cast<Giocatore*>(tesserato);
     g->addRigore(-1, true); //rimuove un rigore segnato aggiunto con l'evento single click che avviene con il double-click
-    g->addRigore(1, false);
     emit rigore(-1, true);
+    g->addRigore(1, false);
     emit rigore(1, false);
     updateGoals();
 }

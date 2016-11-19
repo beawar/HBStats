@@ -19,27 +19,27 @@ unsigned int Giocatore::getNumero() const{
 }
 
 unsigned int Giocatore::getTiriSegnati() const{
-  return tiriSegnati < 0 ? 0 : tiriSegnati;
+  return tiriSegnati <= 0 ? 0 : tiriSegnati;
 }
 
 unsigned int Giocatore::getTiriTotali() const{
-  return tiriTotali < 0 ? 0 : tiriTotali;
+  return tiriTotali <= 0 ? 0 : tiriTotali;
 }
 
 unsigned int Giocatore::getRigoriSegnati() const{
-  return rigoriSegnati < 0 ? 0 : rigoriSegnati;
+  return rigoriSegnati <= 0 ? 0 : rigoriSegnati;
 }
 
 unsigned int Giocatore::getRigoriTotali() const{
-  return rigoriTotali < 0 ? 0 : rigoriTotali;
+  return rigoriTotali <= 0 ? 0 : rigoriTotali;
 }
 
 double Giocatore::getTiriPerc() const{
-  return tiriTotali == 0 ? 0 : (double)(tiriSegnati*100)/tiriTotali;
+  return tiriTotali <= 0 ? 0 : (double)(tiriSegnati*100)/tiriTotali;
 }
 
 double Giocatore::getRigoriPerc() const{
-  return rigoriTotali == 0 ? 0 : (double)(rigoriSegnati*100)/rigoriTotali;
+  return rigoriTotali <= 0 ? 0 : (double)(rigoriSegnati*100)/rigoriTotali;
 }
 
 bool Giocatore::isAmmonito() const{
@@ -60,14 +60,14 @@ void Giocatore::setNumero(unsigned int n){
 
 void Giocatore::addTiro(int x, const bool& segnato){
     if(segnato){
-        tiriSegnati+=x;
+        tiriSegnati+x <= 0 ? tiriSegnati = 0 : tiriSegnati+=x;
     }
     (tiriTotali+x)<tiriSegnati ? tiriTotali=tiriSegnati : tiriTotali+=x;
 }
 
 void Giocatore::addRigore(int x, const bool& segnato){
     if(segnato){
-        rigoriSegnati+=x;
+        rigoriSegnati+x <= 0 ? rigoriSegnati = 0 : rigoriSegnati+=x;
     }
     (rigoriTotali+x)<rigoriSegnati ? rigoriTotali=rigoriSegnati : rigoriTotali+=x ;
     addTiro(x, segnato);
