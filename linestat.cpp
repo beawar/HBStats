@@ -112,13 +112,13 @@ void LineStat::updateDati(Tesserato* t){
 
     switch(t->get2Minuti()){
         case 1:
-            dueMin->setPixmap(QPixmap(":/images/images/bullet-black.png").scaled(20, 20));
+            dueMin->setPixmap(QPixmap(":/images/images/bullet_white.png").scaled(20, 20));
             break;
         case 2:
-            dueMin->setPixmap(QPixmap(":/images/images/bullet-black_x2.png").scaled(40, 20));
+            dueMin->setPixmap(QPixmap(":/images/images/bullet_white_x2.png").scaled(40, 20));
             break;
         case 3:
-            dueMin->setPixmap(QPixmap(":/images/images/bullet-black_x3.png").scaled(60, 20));
+            dueMin->setPixmap(QPixmap(":/images/images/bullet_white_x3.png").scaled(60, 20));
             break;
         default:
             dueMin->clear();
@@ -140,13 +140,13 @@ void LineStat::updateDati(Tesserato* t){
                                                   QString::number(g->getTiriTotali()),
                                                   QString::number(g->getRigoriSegnati()),
                                                   QString::number(g->getRigoriTotali())));
-            perc->setText(tr("%1% (%2%)").arg(QString::number(g->getTiriPerc(), 'f', 2),
-                                              QString::number(g->getRigoriPerc(), 'f', 2)));
+            perc->setText(tr("%1% (%2%)").arg(QString::number(g->getTiriPerc(), 'f', 1),
+                                              QString::number(g->getRigoriPerc(), 'f', 1)));
         }
         else if(g->getTiriTotali() != 0 && g->getRigoriTotali() == 0){
             reti->setText(tr("%1/%2 (-)").arg(QString::number(g->getTiriSegnati()),
                                                   QString::number(g->getTiriTotali())));
-            perc->setText(tr("%1% (-)").arg(QString::number(g->getTiriPerc(), 'f', 2)));
+            perc->setText(tr("%1% (-)").arg(QString::number(g->getTiriPerc(), 'f', 1)));
         }
         else{
             reti->clear();
@@ -160,13 +160,13 @@ void LineStat::updateDati(Tesserato* t){
                                                         QString::number(p->getTiriRicevuti()),
                                                         QString::number(p->getRigoriParati()),
                                                         QString::number(p->getRigoriRicevuti())));
-                paratePerc->setText(tr("%1% (%2%)").arg(QString::number(p->getTiriParatiPerc(), 'f', 2),
-                                                        QString::number(p->getRigoriParatiPerc(), 'f', 2)));
+                paratePerc->setText(tr("%1% (%2%)").arg(QString::number(p->getTiriParatiPerc(), 'f', 1),
+                                                        QString::number(p->getRigoriParatiPerc(), 'f', 1)));
             }
             else if(p->getTiriRicevuti() != 0 && p->getRigoriRicevuti() == 0){
                 parate->setText(tr("%1/%2 (-)").arg(QString::number(p->getTiriParati()),
                                                         QString::number(p->getTiriRicevuti())));
-                paratePerc->setText(tr("%1% (-)").arg(QString::number(p->getTiriParatiPerc(), 'f', 2)));
+                paratePerc->setText(tr("%1% (-)").arg(QString::number(p->getTiriParatiPerc(), 'f', 1)));
             }
             else{
                 reti->clear();

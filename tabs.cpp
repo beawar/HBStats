@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QTabBar>
+#include "statsamescreen.h"
 
 Tabs::Tabs(Squadra *s1, Squadra *s2, int numPlS1, int numAllS1, int numPlS2, int numAllS2, Arbitro *arb1, Arbitro *arb2, Arbitro::Categoria cat, QWidget *parent) :
     QTabWidget(parent), team1(s1), team2(s2), a1(arb1), a2(arb2),
@@ -20,15 +21,23 @@ Tabs::Tabs(Squadra *s1, Squadra *s2, int numPlS1, int numAllS1, int numPlS2, int
 
         partita = new Partita(team1, team2, numPlS1, numAllS1, numPlS2, numAllS2, a1, a2, cat);
 
+        Stat* stat_clone1 = statTeam1->clone();
+        Stat* stat_clone2 = statTeam2->clone();
+        sss = new StatSameScreen(stat_clone1, stat_clone2);
+
         addTab(partita, tr("Partita"));
         addTab(statTeam1, team1->getNome());
         addTab(statTeam2, team2->getNome());
+        addTab(sss, tr("Both"));
 
         pngOpen1 = "";
         pngOpen2 = "";
+        png3 = "";
 
         connect(partita, SIGNAL(dataChanged()), statTeam1, SLOT(updateDati()));
         connect(partita, SIGNAL(dataChanged()), statTeam2, SLOT(updateDati()));
+        connect(partita, SIGNAL(dataChanged()), stat_clone1, SLOT(updateDati()));
+        connect(partita, SIGNAL(dataChanged()), stat_clone2, SLOT(updateDati()));
         connect(partita, SIGNAL(dataChanged()), this, SLOT(dataChanged()));
     }
 }
@@ -69,6 +78,23 @@ void Tabs::exportPng(){
                 QFile file(filename);
                 pixmap2.save(&file, "PNG");
                 pngOpen2 = filename;
+                file.close();
+            }
+        }
+
+        QPixmap pixmap3(sss->rect().size());
+        sss->render(&pixmap3, QPoint(), QRegion(sss->rect()));
+        if(!png3.isEmpty()){
+            QFile file(png3);
+            pixmap3.save(&file, "PNG");
+            file.close();
+        }
+        else{
+            QString filename = QFileDialog::getSaveFileName(this, tr("Esporta come"), QDir::currentPath(), "*.png");
+            if(!filename.isEmpty()){
+                QFile file(filename);
+                pixmap3.save(&file, "PNG");
+                png3 = filename;
                 file.close();
             }
         }

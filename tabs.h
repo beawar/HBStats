@@ -6,6 +6,7 @@
 #include "stat.h"
 #include "squadra.h"
 #include "partita.h"
+#include "statsamescreen.h"
 
 class Tabs : public QTabWidget
 {
@@ -18,9 +19,11 @@ private:
 
     QString pngOpen1;
     QString pngOpen2;
+    QString png3;
 
     Stat* statTeam1;
     Stat* statTeam2;
+    StatSameScreen* sss;
     Partita* partita;
 
 public:

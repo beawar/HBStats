@@ -63,6 +63,80 @@ Stat::Stat(Squadra *s, QWidget *parent) :
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 }
 
+Stat::Stat(const Stat& s): squadra(s.squadra){
+    /*squadra = s.squadra;
+    squadraLabel = s.squadraLabel;
+    percSquadra = s.percSquadra;
+
+    numero = new QLabel (s.numero->text());
+    cognome = new QLabel(s.cognome->text());
+    nome = new QLabel(s.nome->text());
+    ammo = new QLabel(s.ammo->text());
+    dueMin = newQLabel(s.dueMin->text());
+    escl = new QLabel(s.escl->text());
+    reti = new QLabel(s.reti->text());
+    parate = new QLabel(s.parate->text());
+    perc = new QLabel(s.perc->text());
+    parateperc = new QLabel(s.parateperc->text());
+
+    createHeader();
+    */
+
+    createHeader();
+
+    QFont font;
+    font.setBold(true);
+    font.setItalic(true);
+    font.setPointSize(14);
+    squadraLabel = new QLabel(squadra->getNome(), this);
+    squadraLabel->setFont(font);
+
+    QFont font2;
+    font2.setBold(true);
+    font2.setItalic(false);
+    font2.setPointSize(10);
+    percSquadra = new QLabel(this);
+    percSquadra->setText(tr("Realizzazioni: %1% (Rigori: %2%) Parate: %3% (Rigori: %4%)")
+                         .arg("--", "--", "--", "--"));
+    percSquadra->setFont(font2);
+    percSquadra->setAlignment(Qt::AlignLeft);
+
+    QHBoxLayout* squadraLayout = new QHBoxLayout;
+    squadraLayout->addWidget(squadraLabel);
+    squadraLayout->addWidget(percSquadra);
+
+    QVBoxLayout* layout = new QVBoxLayout;
+    layout->addLayout(squadraLayout);
+    layout->addLayout(headerLayout);
+
+    //Creating and setting a groupbox that contain all the header labels
+    QGroupBox* headerGroup = new QGroupBox(this);
+    headerGroup->setObjectName("HeaderGroup");
+    headerGroup->setLayout(layout);
+    headerGroup->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout;
+    mainLayout->setSpacing(3);
+    mainLayout->setMargin(5);
+    mainLayout->addWidget(headerGroup);
+
+    int j = 0;
+    for(unsigned int i=0; i<squadra->size() && j<maxPersone; ++i){
+        if(squadra->at(i)->isChecked()){
+            persona[j] = new LineStat(squadra->at(i), this);
+            mainLayout->addWidget(persona[j]);
+            j++;
+        }
+    }
+    persona[j-1]->setObjectName("LastPerson");
+    setLayout(mainLayout);
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+}
+
+Stat* Stat::clone() const{
+    return new Stat(*this);
+}
+
 void Stat::createHeader(){
     headerLayout = new QHBoxLayout;
 

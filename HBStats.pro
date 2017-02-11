@@ -38,7 +38,8 @@ SOURCES += main.cpp \
     linepartita.cpp \
     pushbutton.cpp \
     editor.cpp \
-    label.cpp
+    label.cpp \
+    statsamescreen.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -67,7 +68,8 @@ HEADERS  += \
     linepartita.h \
     pushbutton.h \
     editor.h \
-    label.h
+    label.h \
+    statsamescreen.h
 
 FORMS    +=
 
