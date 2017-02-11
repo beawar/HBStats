@@ -94,8 +94,8 @@ LineStat .QLabel{
 }
 
 #goal3, #goal4, #goal_h3, #goal_h4{
-    min-width: 135px;
-    max-width: 135px;
+    min-width: 130px;
+    max-width: 130px;
     text-align: center;
 }
 
@@ -170,4 +170,15 @@ QMenuBar::item:selected { /* when selected using mouse or keyboard */
 
 QMenuBar::item:pressed {
     background: lightslategray;
+}
+
+#stat_same_screen{
+    background: url(:/images/images/Sfondo_logo.png);
+    padding: 0;
+    margin: 0;
+}
+
+#stat_same_screen .Stat{
+    margin: 0;
+    padding: 0;
 }

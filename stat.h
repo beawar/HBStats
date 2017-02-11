@@ -39,6 +39,8 @@ protected:
 
 public:
     explicit Stat(Squadra* s, QWidget *parent = 0);
+    Stat (const Stat&);
+    Stat* clone() const;
 
 signals:
 
