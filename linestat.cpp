@@ -169,8 +169,8 @@ void LineStat::updateDati(Tesserato* t){
                 paratePerc->setText(tr("%1% (-)").arg(QString::number(p->getTiriParatiPerc(), 'f', 1)));
             }
             else{
-                reti->clear();
-                perc->clear();
+                parate->clear();
+                paratePerc->clear();
             }
         }
     }

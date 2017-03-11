@@ -14,7 +14,15 @@ PushButton::PushButton(const QString& s, QWidget *parent):
 
 void PushButton::mousePressEvent(QMouseEvent *e){
     if(e->button() == Qt::RightButton){
-        emit rightClicked();
+        if(e->modifiers() == Qt::ShiftModifier){
+            emit rightModClicked();
+        }
+        else{
+            emit rightClicked();
+        }
+    }
+    else if(e->button() == Qt::LeftButton && e->modifiers() == Qt::ShiftModifier){
+        emit leftModClicked();
     }
     else{
         QPushButton::mousePressEvent(e);
@@ -22,15 +30,15 @@ void PushButton::mousePressEvent(QMouseEvent *e){
 }
 
 void PushButton::mouseDoubleClickEvent(QMouseEvent *e){
-    if(e->button() == Qt::RightButton){
-        emit rightDoubleClicked();
-    }
-    else if(e->button() == Qt::LeftButton){
-        emit leftDoubleClicked();
-    }
-    else{
-        QPushButton::mouseDoubleClickEvent(e);
-    }
+//    if(e->button() == Qt::RightButton){
+//        emit rightDoubleClicked();
+//    }
+//    else if(e->button() == Qt::LeftButton){
+//        emit leftDoubleClicked();
+//    }
+//    else{
+//        QPushButton::mouseDoubleClickEvent(e);
+//    }
 }
 
 

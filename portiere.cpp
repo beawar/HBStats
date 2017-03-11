@@ -54,18 +54,18 @@ double Portiere::getRigoriParatiPerc() const{
     return rigoriRicevuti == 0 ? 0 : (double)(rigoriParati*100)/rigoriRicevuti;
 }
 
-void Portiere::addTiroRicevuto(int x, const bool & parato){
+void Portiere::addTiroRicevuto(int x, const bool& parato){
     if(parato){
-        tiriParati+x <0 ? tiriParati=0 : tiriParati+=x;
+        tiriParati+x <=0 ? tiriParati=0 : tiriParati+=x;
     }
-    tiriRicevuti+x <0 ? tiriRicevuti=0 : tiriRicevuti+=x;
+    tiriRicevuti+x <=0 ? tiriRicevuti=0 : tiriRicevuti+=x;
 }
 
-void Portiere::addRigoreRicevuto(int x, const bool & parato){
+void Portiere::addRigoreRicevuto(int x, const bool& parato){
     if(parato){
-        rigoriParati+x <0 ? rigoriParati=0 : rigoriParati+=x;
+        rigoriParati+x <=0 ? rigoriParati=0 : rigoriParati+=x;
     }
-    rigoriRicevuti+x <0 ? rigoriRicevuti=0 : rigoriRicevuti+=x;
+    rigoriRicevuti+x <=0 ? rigoriRicevuti=0 : rigoriRicevuti+=x;
     addTiroRicevuto(x, parato);
 }
 

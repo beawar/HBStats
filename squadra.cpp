@@ -250,6 +250,15 @@ Tesserato* Squadra::trova(Tesserato& t) const{
     return 0;
 }
 
+int Squadra::pos(Tesserato & t) const{
+    for(int i=0; i< tesserati.size(); ++i){
+        if(*(tesserati.at(i)) == t){
+            return i;
+        }
+    }
+    return -1;
+}
+
 Tesserato* Squadra::at (int i) const{
     return tesserati.at(i);
 }

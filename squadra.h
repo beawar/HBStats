@@ -85,6 +85,7 @@ public:
     void modifica(const Squadra&);
 
     Tesserato* trova(Tesserato &) const;
+    int pos(Tesserato&) const;
     Tesserato* at (int) const;
     Tesserato& operator [] (int) const;
     bool operator == (const Squadra&) const;

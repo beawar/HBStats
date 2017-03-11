@@ -16,8 +16,8 @@ private slots:
     void mouseDoubleClickEvent(QMouseEvent *e);
 signals:
  void rightClicked();
- void leftDoubleClicked();
- void rightDoubleClicked();
+ void leftModClicked();
+ void rightModClicked();
 public slots:
 
 };

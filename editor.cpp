@@ -102,6 +102,8 @@ void Editor::createTesseratoEditor(){
     numeroEdit = new QSpinBox(this);
     numeroEdit->setRange(1, 99);
 
+    portiere = new QCheckBox("Portiere", this);
+
     QGridLayout* gridTLayout = new QGridLayout;
     gridTLayout->addWidget(squadraLabel, 1, 1);
     gridTLayout->addWidget(squadreComboBox, 1, 2);
@@ -113,6 +115,7 @@ void Editor::createTesseratoEditor(){
     gridTLayout->addWidget(dataTEdit, 4, 2);
     gridTLayout->addWidget(numeroLabel, 5, 1);
     gridTLayout->addWidget(numeroEdit, 5, 2);
+    gridTLayout->addWidget(portiere, 6, 2);
 
     tesseratoWidget = new QWidget(this);
     tesseratoWidget->setLayout(gridTLayout);
@@ -204,6 +207,14 @@ void Editor::modificaTesserato(){
         g.setData(dataTEdit->date());
         g.setNumero(numeroEdit->value());
         squadra->modificaTesserato(gioc, g);
+        if(portiere->isChecked() && !dynamic_cast<Portiere*>(gioc)){
+            Portiere* p = new Portiere(*gioc);
+            squadra->sostituisciTesserato(squadra->pos(*gioc), p);
+        }
+        else if(!portiere->isChecked() && dynamic_cast<Portiere*>(gioc)){
+            Giocatore* g = new Giocatore(*(static_cast<Giocatore*>(gioc)));
+            squadra->sostituisciTesserato(squadra->pos(*gioc), g);
+        }
     }
     else{
         Allenatore* all = dynamic_cast<Allenatore*>(squadra->at(index));
@@ -362,10 +373,14 @@ void Editor::itemSelected(QModelIndex current){
                 if(g){
                     numeroEdit->setEnabled(true);
                     numeroEdit->setValue(g->getNumero());
+                    portiere->setEnabled(true);
+                    portiere->setChecked(dynamic_cast<Portiere*>(g));
                 }
                 else{
                     numeroEdit->setDisabled(true);
+                    portiere->setDisabled(true);
                 }
+
             }
             break;
             case id_squadra:

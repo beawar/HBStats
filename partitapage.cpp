@@ -173,7 +173,9 @@ int PartitaPage::nextId() const{
 bool PartitaPage::validatePage() const{
     if(squadra1ComboBox->currentText() == squadra2ComboBox->currentText() ||
             //arbitro1ComboBox->currentText() == arbitro2ComboBox->currentText() ||
-            squadra1->checkedGiocatori() < 7 || squadra2->checkedGiocatori() < 7){
+            squadra1->checkedGiocatori() < 7 || squadra2->checkedGiocatori() < 7 ||
+            squadra1->checkedGiocatori() > 14 || squadra2->checkedGiocatori() > 14 ||
+            squadra1->checkedAllenatori() > 2 || squadra2->checkedAllenatori() > 2){
         return false;
     }
     return true;

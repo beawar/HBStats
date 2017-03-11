@@ -36,17 +36,17 @@ private slots:
     void rightclickdueMin();
     void rightclickEscl();
     void rightclickTiro();
-    void rightdoubleclickTiro();
+    void rightclickModTiro();
     void rightclickRigore();
-    void rightdoubleclickRigore();
+    void rightclickModRigore();
 
     void leftclickAmmo();
     void leftclickdueMin();
     void leftclickEscl();
     void leftclickTiro();
-    void leftdoubleclickTiro();
+    void leftclickModTiro();
     void leftclickRigore();
-    void leftdoubleclickRigore();
+    void leftclickModRigore();
 
     void updateGoals();
 

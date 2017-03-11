@@ -72,6 +72,7 @@ private:
     QDateEdit* dataAEdit;
     QLabel* livelloLabel;
     QSpinBox* livelloEdit;
+    QCheckBox* portiere;
 
     QStackedLayout* layouts;
     QVBoxLayout* mainLayout;
